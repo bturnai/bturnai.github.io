@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analyst Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- UI DIZÁJN RENDSZER (Változók) --- */
+        :root {
+            --bg-main: #0f172a;       /* Mély palaszürke alap */
+            --bg-card: #1e293b;       /* Kártyák és szekciók háttere */
+            --accent-cyan: #06b6d4;   /* Éles neon-cián a fókuszpontoknak */
+            --accent-blue: #3b82f6;   /* Technológiai kék */
+            --text-main: #f8fafc;     /* Kiválóan olvasható világos szöveg */
+            --text-muted: #94a3b8;    /* Másodlagos leírások */
+            --font-sans: 'Inter', sans-serif;
+            --max-width: 1200px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- GLOBÁLIS STÍLUSOK --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 8rem 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- NAVIGÁCIÓ (Minimalista, lebegő) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4.5rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* --- HERO SZEKCIÓ --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 6rem;
+            position: relative;
+        }
+
+        /* Dekoratív hálós háttér az adatok hangulatához */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-main) 60%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-cyan);
+            color: var(--bg-main);
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* --- SZEKCIÓ CÍMEK --- */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-cyan);
+            border-radius: 2px;
+        }
+
+        /* --- TECH STACK SZEKCIÓ --- */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 100px));
+            gap: 1.5rem;
+        }
+
+        .tech-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5);
+        }
+
+        .tech-icon {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tech-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- PROJEKTEK (Esettanulmány fókusz) --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: rgba(6, 182, 212, 0.2);
+            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.7);
+        }
+
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Strukturált Esettanulmány felépítés */
+        .case-study-details {
+            margin-bottom: 2rem;
+        }
+
+        .cs-step {
+            margin-bottom: 1rem;
+        }
+
+        .cs-step strong {
+            color: var(--text-main);
+            display: block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .cs-step span {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .cs-step.impact strong {
+            color: var(--accent-cyan);
+        }
+
+        .project-card .btn {
+            align-self: flex-start;
+        }
+
+        /* --- TÁVMUNKA ALKAMMASSÁG --- */
+        .remote-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .remote-card {
+            padding: 2rem;
+            border-left: 3px solid rgba(6, 182, 212, 0.3);
+            background: linear-gradient(to right, rgba(30, 41, 59, 0.4), transparent);
+        }
+
+        .remote-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .remote-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- KAPCSOLAT --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr 1.2fr;
+            }
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        /* Form dizájn */
+        .contact-form {
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background-color: var(--bg-main);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);
+        }
+
+        .contact-form .btn {
+            width: 100%;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONDZÍV MEGJELENÉS FINOMÍTÁSA --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            section {
+                padding: 5rem 0;
+            }
+            .nav-links {
+                display: none; /* Mobilon a letisztultságért elrejthetjük, vagy hamburgert tehetünk */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">DATA<span>.</span>ANALYST</a>
+            <ul class="nav-links">
+                <li><a href="#skills">Készségek</a></li>
+                <li><a href="#projects">Projektek</a></li>
+                <li><a href="#remote">Távmunka</a></li>
+                <li><a href="#contact">Kapcsolat</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Data Analyst | Turning Complex Data into Actionable Business Insights</h1>
+                <p>Specialized in remote data solutions, data modeling, and interactive dashboards.</p>
+                <div class="btn-group">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" style="background-color: rgba(30, 41, 59, 0.2);">
+        <div class="container">
+            <h2 class="section-title">Tech Stack & Készségek</h2>
+            <div class="tech-grid">
+                
+                <div class="tech-card">
+                    <span class="tech-icon">SQL</span>
+                    <h3>Adatbázis-kezelés</h3>
+                    <p>Összetett JOIN-ok, analitikus funkciók, lekérdezések optimalizálása és nagy adatbázisok strukturálása.</p>
+                </div>
+
+                <div class="tech-card">
+                    <span class="tech-icon">PY</span>
+                    <h3>Python</h3>
+                    <p>Adattisztítás, transzformáció (Pandas, NumPy) és ismétlődő adatfolyamok automatizálása.</p>
+                </div>
+
+                <div class="tech-card">
+                    <span class="tech-icon">TB</span>
+                    <h3>Tableau</h3>
+                    <p>Interaktív, üzleti dashboardok, vizualizációk és történetmesélés adatokon keresztül (Storytelling).</p>
+                </div>
+
+                <div class="tech-card">
+                    <span class="tech-icon">XL</span>
+                    <h3>Excel & Spreadsheets</h3>
+                    <p>Haladó pénzügyi és üzleti modellezés, Pivot táblák, komplex formulák és automatizált riportok.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Kiemelt Projektek</h2>
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>E-Commerce Konverzió-Optimalizáció</h3>
+                            <div class="tech-tags">
+                                <span class="tag">#Python</span>
+                                <span class="tag">#SQL</span>
+                                <span class="tag">#Tableau</span>
+                            </div>
+                            <div class="case-study-details">
+                                <div class="cs-step">
+                                    <strong>Probléma:</strong>
+                                    <span>A webáruház kosárelhagyási aránya 45%-ra nőtt a harmadik negyedévben.</span>
+                                </div>
+                                <div class="cs-step">
+                                    <strong>Megoldás:</strong>
+                                    <span>Python segítségével tisztítottam meg a felhasználói útvonalak adatait, majd SQL-ben kohorsz-analízist végeztem a kritikus pontok kiszűrésére.</span>
+                                </div>
+                                <div class="cs-step impact">
+                                    <strong>Üzleti hatás:</strong>
+                                    <span>A Tableau-ban felépített heti riportok alapján végrehajtott UX-módosítások 12%-kal csökkentették a lemorzsolódást.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">View GitHub Link</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Logisztikai Ellátási Lánc Predikció</h3>
+                            <div class="tech-tags">
+                                <span class="tag">#SQL</span>
+                                <span class="tag">#Excel</span>
+                                <span class="tag">#BigQuery</span>
+                            </div>
+                            <div class="case-study-details">
+                                <div class="cs-step">
+                                    <strong>Probléma:</strong>
+                                    <span>A raktárkészlet túlcsordulása és az üresjáratok havi szinten komoly veszteséget okoztak.</span>
+                                </div>
+                                <div class="cs-step">
+                                    <strong>Megoldás:</strong>
+                                    <span>Historikus szállítási adatok elemzése BigQuery-ben. Haladó Excel prediktív modellek bevezetése a szezonalitás előrejelzésére.</span>
+                                </div>
+                                <div class="cs-step impact">
+                                    <strong>Üzleti hatás:</strong>
+                                    <span>A raktározási költségek 18%-kal csökkentek az optimalizált beszerzési tervnek köszönhetően.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">View Case Study</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>SaaS Előfizetői Lemorzsolódás (Churn) Riport</h3>
+                            <div class="tech-tags">
+                                <span class="tag">#Python</span>
+                                <span class="tag">#Tableau</span>
+                                <span class="tag">#Pandas</span>
+                            </div>
+                            <div class="case-study-details">
+                                <div class="cs-step">
+                                    <strong>Probléma:</strong>
+                                    <span>A vezetőség nem látta pontosan, melyik ügyfélszegmensnél a legmagasabb a churn.</span>
+                                </div>
+                                <div class="cs-step">
+                                    <strong>Megoldás:</strong>
+                                    <span>Felhasználói aktivitási adatok feldolgozása Pandas-szal. Interaktív vezetői dashboard fejlesztése Tableau-ban, automatikus kiugróérték-riasztással.</span>
+                                </div>
+                                <div class="cs-step impact">
+                                    <strong>Üzleti hatás:</strong>
+                                    <span>A Customer Success csapat időben tudott beavatkozni, ami 8%-os előfizető-megtartási növekedést eredményezett.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary">View Tableau Public</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="remote" style="background-color: rgba(30, 41, 59, 0.2);">
+        <div class="container">
+            <h2 class="section-title">Remote-Ready Attitűd</h2>
+            <div class="remote-grid">
+                
+                <div class="remote-card">
+                    <h3>Önálló problémamegoldás</h3>
+                    <p>Nem várok a válaszokra; strukturáltan, az üzleti célokat szem előtt tartva kutatom fel a hibákat és az adatbázisok anomáliáit.</p>
+                </div>
+
+                <div class="remote-card">
+                    <h3>Transzparens dokumentáció</h3>
+                    <p>Tisztán kommentelt Python kódok, verziókövetés GitHubon és érthető módon dokumentált SQL sémák, hogy az aszinkron munka is zökkenőmentes legyen.</p>
+                </div>
+
+                <div class="remote-card">
+                    <h3>Üzlet-orientált gondolkodás</h3>
+                    <p>Nem csak nyers számokat látok. Mindig azt a mögöttes hozzáadott értéket és trendeket keresem, amelyek közvetlenül növelik a bevételt vagy csökkentik a kiadásokat.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Kapcsolat felvétel</h2>
+            <div class="contact-wrapper">
+                
+                <div class="contact-info">
+                    <h3>Dolgozzunk együtt!</h3>
+                    <p>Nyitott vagyok teljes munkaidős nemzetközi távmunkára (Remote), vagy projektalapú szabadúszó megbízásokra egyaránt.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" target="_blank" class="social-link">→ LinkedIn Profil</a>
+                        <a href="https://github.com" target="_blank" class="social-link">→ GitHub Portfólió</a>
+                        <a href="https://public.tableau.com" target="_blank" class="social-link">→ Tableau Public</a>
+                    </div>
+                </div>
+
+                <form class="contact-form" action="#" method="POST" onsubmit="alert('A demó űrlap elküldése sikeres!'); return false;">
+                    <div class="form-group">
+                        <label for="name">Név</label>
+                        <input type="text" id="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email cím</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Üzenet</label>
+                        <textarea id="message" rows="5" required placeholder="Szia! Szeretnénk egyeztetni veled egy projekt kapcsán..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Üzenet küldése</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Data Analyst Portfolio. Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
