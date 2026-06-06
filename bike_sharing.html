@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study - Cyclistic Bike-Share Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --accent-cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --max-width: 900px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-top: 5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- NAVIGÁCIÓ --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4.5rem;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        header {
+            padding: 4rem 0 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        .content-section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-section h2 {
+            font-size: 1.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .content-section ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .content-section li {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .content-section strong {
+            color: var(--accent-cyan);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+            <div class="back-link">Case Study</div>
+        </div>
+    </nav>
+
+    <header class="container">
+        <h1>Cyclistic Bike-Share Analysis: Converting Casual Riders to Annual Subscribers</h1>
+    </header>
+
+    <main class="container">
+        
+        <section class="content-section">
+            <h2>Business Problem & Context</h2>
+            <p>This analysis evaluates 12 months of historical trip data to convert casual riders into annual subscribers. The strategic focus is identifying behavioral differences between casual riders and annual members during major Chicago public events to design targeted marketing interventions. The raw dataset, provided by Motivate International Inc. , consists of monthly CSV files containing transaction-level data: unique ride IDs, bike types, timestamps, and docking station telemetry. To comply with data privacy standards, all personally identifiable information (PII) is omitted at the source. This restriction prevents tracking unique users, credit cards, or residential zip codes, shifting the analytical focus from individual user histories to aggregated, high-density event-day behavior.</p>
+        </section>
+
+
+        <section class="content-section">
+            <h2>Data Cleaning & Processing</h2>
+            <p>Due to the multi-gigabyte volume of the 12-month dataset, standard spreadsheet applications failed to process individual monthly files, necessitating Python (Pandas) for scalable data engineering. The 12 distinct monthly files were programmatically merged into a single annual dataframe, and data types across all columns were validated and corrected. Two engineered features were generated: ride_length (calculating trip duration from start and end timestamps) and day_of_week (extracting the specific day of departure).</p>
+            <p>Data auditing revealed systematic anomalies that required targeted filtering to ensure analysis integrity. Outliers including negative trip durations and ultra-short trips under 30 seconds where the start and end stations were identical—indicating immediate returns due to mechanical faults—were removed. Chronological integrity was confirmed, verifying all timestamps fell strictly within the target date range. Final structural checks identified missing values primarily concentrated in the station telemetry (station_id, name, and coordinates) of electric bikes, which were isolated to prevent skewing the subsequent spatial analysis.</p>
+        </section>
+
+
+        <section class="content-section">
+            <h2>Analysis & BI Insights</h2>
+            <p>Aggregated pivot tables and time-series heat maps revealed structural divergence in user behavior and ride cadence. Descriptive analysis indicates that casual riders maintain significantly higher trip durations, averaging over 10 minutes longer per ride than annual members, and clocking up to twice the total ride time throughout most of the year. Hourly and weekly heat maps expose distinct operational footprints: annual member usage heavily clusters around standard commuting windows—surging between 06:00–09:00 and 15:00–19:00 on weekdays—confirming utility-driven, work-to-home transit patterns. Conversely, casual rider volume peaks sharply during weekends from 09:00–18:00 and windows of late-afternoon leisure on weekdays (16:00–19:00). A localized sub-trend also emerged in casual data during late-night and early-morning hours on Fridays and Saturdays, isolating a distinct weekend nightlife demographic.</p>
+        </section>
+
+
+        <section class="content-section">
+            <h2>Strategic Recommendations</h2>
+            <p>Based on the insights gaps identified in the data, I propose the following 3 strategic recommendations for Cyclistic's management:</p>
+            <ol>
+                <li><strong>Proactive Campaign Timing:</strong> Data shows that casual rides start to surge in May and remain peak until September. I recommend launching the marketing campaign in mid-April to capture users right before the high season starts, converting them into annual members before May begins.</li>
+                <li><strong>Targeted Lifestyle Marketing:</strong> Since casual riders exhibit a clear weekend and leisure usage pattern, marketing messages should emphasize freedom, speed, and weekend fun. The campaign must highlight that for regular weekend riding, an annual membership is the most seamless and cost-effective option available.</li>
+                <li><strong>The 15-Minute E-Bike "Hook" Strategy:</strong> The average trip duration for casual riders is 21 minutes, making pay-per-minute fees a significant pain point during summer. I recommend introducing 1 daily 15-minute free e-mobility (scooter/e-bike) session exclusive to annual members. Because this is lower than their 21-minute average, riders will naturally spill over the limit and pay the regular minute rates for the remaining time (and for any subsequent rides). This psychological anchor will drive high annual conversions while protecting and generating extra company revenue.</li>
+            </ol>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Data Analyst Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
