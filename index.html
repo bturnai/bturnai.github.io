@@ -1,78 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyclistic Bike-Share Case Study</title>
+    <title>Data Analyst Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Cyclistic Bike-Share Analysis</h1>
-            <span class="subtitle">Converting Casual Riders to Annual Subscribers</span>
-            
-            <div class="hook-box">
-                <strong>The Hook:</strong> A data-driven strategy to convert Cyclistic's casual riders into annual subscribers. By analyzing 12 months of historical trip data using Python and Tableau, I identified key behavioral divergences to power a targeted marketing campaign.
-            </div>
-        </header>
+    <!-- NAVIGÁCIÓ -->
+    <nav class="container">
+        <div class="logo">PORTFOLIO<span>.</span></div>
+    </nav>
 
-        <section class="summary-box">
-            <h3>Executive Summary (TL;DR)</h3>
-            <ul>
-                <li><strong>The Problem:</strong> Cyclistic aims to maximize profit by converting casual weekend/leisure riders into high-margin annual members.</li>
-                <li><strong>The Tech Stack:</strong> <span class="tech-badge">Python (Pandas)</span> for high-volume data cleaning and feature engineering; <span class="tech-badge">Tableau</span> for executive-level business intelligence.</li>
-                <li><strong>The Impact:</strong> Discovered distinct utility vs. leisure behavior, leading to 3 actionable marketing interventions designed to capture peak-season revenue.</li>
-            </ul>
+    <!-- BEMUTATKOZÁS -->
+    <main class="container">
+        <section class="profile-section">
+            <h1>Welcome</h1>
+            <p>Versatile individual with experience collecting, transforming, and organizing data for analysis to help make informed decisions. Excellent understanding and proficiency of platforms for effective data analyses, including SQL, spreadsheets, Tableau, Power Bi and Python. Strong communication, organizational, and analytical skills. Recently completed the Google Data Analytics Certificate—a rigorous, hands-on program that covers the entire scope of the data analysis process.</p>
         </section>
 
-        <h2>Business Problem & Context</h2>
-        <p>This analysis evaluates 12 months of historical trip data provided by Motivate International Inc. to drive annual subscriber growth.</p>
-        <p>To comply with strict data privacy standards, all personally identifiable information (PII) was omitted at the source. This restriction shifted the analytical focus from individual tracking to aggregated, high-density behavior patterns across Chicago.</p>
+        <!-- PROJEKTEK LISTÁJA -->
+        <section class="projects-section">
+            <h2 class="section-title">Kiemelt projektek <span>.</span></h2>
+            <div class="projects-grid">
 
-        <h2>Data Cleaning & Processing (Scalable Data Engineering)</h2>
-        <p>Due to the multi-gigabyte volume of the 12-month dataset, standard spreadsheet applications failed to process the load, necessitating <strong>Python (Pandas)</strong> for data pipeline engineering.</p>
-        
-        <p><strong>Key Technical Milestones:</strong></p>
-        <ul>
-            <li><strong>Data Integration:</strong> Programmatically merged 12 distinct monthly CSV files into a single consolidated annual dataframe.</li>
-            <li><strong>Feature Engineering:</strong> Generated <code>ride_length</code> (trip duration) and <code>day_of_week</code> to isolate granular usage patterns.</li>
-            <li><strong>Data Auditing & Filtering:</strong> Targeted and removed systematic anomalies, including negative trip durations and ultra-short trips (&lt;30 seconds) with identical start/end stations (indicating mechanical faults).</li>
-            <li><strong>Null-Value Handling:</strong> Isolated missing station telemetry data specific to electric bikes to protect the spatial integrity of the analysis.</li>
-        </ul>
+                <!-- 1. Projekt Kártya -->
+                <div class="project-card">
+                    <div>
+                        <h3>Cyclistic Bike-Share Analysis</h3>
+                        <p>Cleaned and analyzed a 12-month travel database using Python and SQL to uncover user habits and conversion opportunities.</p>
+                    </div>
+                    <!-- Átnavigálás a konkrét esettanulmány oldalára -->
+                    <a href="bike_sharing.html" class="btn">View Case Study</a>
+                </div>
 
-        <h2>Analysis & BI Insights</h2>
-        <p>Aggregated analysis revealed structural divergence in user behavior and ride cadence between the two cohorts:</p>
-        
-        <ul>
-            <li><strong>The Commuter Footprint (Members):</strong> Annual member usage heavily clusters around standard commuting windows (<strong>06:00–09:00</strong> and <strong>15:00–19:00</strong>) on weekdays, confirming utility-driven transit patterns.</li>
-            <li><strong>The Leisure Footprint (Casuals):</strong> Casual rider volume peaks sharply during weekends (<strong>09:00–18:00</strong>) and late-afternoon leisure windows on weekdays. A localized sub-trend also emerged during late-night hours on Fridays and Saturdays, isolating a weekend nightlife demographic.</li>
-            <li><strong>Duration Metrics:</strong> Casual riders maintain significantly higher trip durations, averaging over 10 minutes longer per ride than annual members.</li>
-        </ul>
+                <!-- 2. Projekt Kártya -->
+                <div class="project-card">
+                    <div>
+                        <h3>E-Commerce Conversion Optimization</h3>
+                        <p>Webáruházi kosárelhagyások keresztanalízise és interaktív Tableau vezetői dashboard kidolgozása a lemorzsolódási pontok azonosítására.</p>
+                    </div>
+                    <a href="ecommerce-case-study.html" class="btn">View Case Study</a>
+                </div>
 
-        <div class="placeholder-box">
-            [INSERT YOUR TABLEAU DASHBOARD SCREENSHOT / EMBED LINK HERE]
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER / MINIMÁLIS KAPCSOLAT LINK -->
+    <footer class="container">
+        <div>&copy; 2026 Data Analyst Portfolio.</div>
+        <div class="footer-links">
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            <a href="https://github.com" target="_blank">GitHub</a>
+            <a href="mailto:email@domain.com">Email</a>
         </div>
-
-        <h2>Strategic Recommendations</h2>
-        <p>Based on the insight gaps identified in the data, I propose the following 3 strategic recommendations for Cyclistic's management:</p>
-
-        <div class="recommendation-card">
-            <h4>1. Proactive Campaign Timing</h4>
-            <p>Data shows that casual rides surge in May and peak until September. Launch the marketing campaign in mid-April to convert users into annual members right before the high season starts.</p>
-        </div>
-
-        <div class="recommendation-card">
-            <h4>2. Targeted Lifestyle Marketing</h4>
-            <p>Emphasize freedom, speed, and weekend fun in marketing collateral. The campaign must highlight that for regular weekend riding, an annual membership is the most seamless and cost-effective option available.</p>
-        </div>
-
-        <div class="recommendation-card">
-            <h4>3. The 15-Minute E-Bike "Hook" Strategy</h4>
-            <p>The average trip duration for casual riders is 21 minutes, making pay-per-minute fees a significant pain point. Introduce 1 daily 15-minute free e-mobility session exclusive to annual members. Because this is lower than their 21-minute average, riders will naturally spill over the limit and pay regular minute rates, driving high annual conversions while generating extra revenue.</p>
-        </div>
-    </div>
+    </footer>
 
 </body>
 </html>
