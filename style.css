@@ -1,169 +1,136 @@
-/* --- DIZÁJN RENDSZER --- */
-        :root {
-            --bg-main: #0f172a;       /* Mély palaszürke háttér */
-            --bg-card: #1e293b;       /* Kártyák háttere */
-            --accent-cyan: #06b6d4;   /* Funkcionális neon-cián kiemelő */
-            --text-main: #f8fafc;     /* Elsődleges szöveg */
-            --text-muted: #94a3b8;    /* Másodlagos szöveg */
-            --border-color: rgba(255, 255, 255, 0.05);
-            --max-width: 1000px;
-            --transition: all 0.2s ease-in-out;
-        }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #cbd5e0; /* Lágy szürkésfehér törzsszöveg */
+    background-color: #0f172a; /* Mély sötétkék alap */
+    margin: 0;
+    padding: 20px;
+}
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #1e293b; /* Világosabb kártya háttér a szöveg kiemelésére */
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
 
-        .container {
-            width: 100%;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+header {
+    border-bottom: 1px solid #334155;
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+}
 
-        /* --- LEBUTÍTOTT NAVIGÁCIÓ --- */
-        nav {
-            padding: 2rem 0;
-        }
+h1 {
+    font-size: 26pt;
+    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
 
-        .logo {
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.05em;
-        }
+.subtitle {
+    font-size: 18pt;
+    color: #94a3b8;
+    font-weight: normal;
+    display: block;
+    margin-bottom: 20px;
+}
 
-        .logo span {
-            color: var(--accent-cyan);
-        }
+.hook-box {
+    font-size: 11.5pt;
+    font-style: italic;
+    color: #e2e8f0;
+    background-color: rgba(30, 64, 175, 0.3); /* Áttetsző kék dizájn elem */
+    border-left: 4px solid #3b82f6;
+    padding: 20px;
+    margin: 25px 0 0 0;
+    border-radius: 0 8px 8px 0;
+}
 
-        /* --- BEMUTATKOZÁS (HERO & ABOUT EGYBEN) --- */
-        .profile-section {
-            padding: 4rem 0 6rem 0;
-        }
+h2 {
+    font-size: 16pt;
+    color: #38bdf8; /* Világoskék címsorok */
+    margin-top: 45px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
-        .profile-section h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
+.summary-box {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 25px 30px;
+    margin-bottom: 40px;
+}
 
-        .profile-section p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 800px;
-        }
+.summary-box h3 {
+    margin-top: 0;
+    color: #ffffff;
+    font-size: 13pt;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
 
-        /* --- MINIMALISTA PROJEKT RÁCSHÁLÓ --- */
-        .projects-section {
-            padding-bottom: 8rem;
-        }
+/* Listák precíz igazítása, hogy a pontok ne lógjanak ki balra */
+ul {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 2.5rem;
-            letter-spacing: -0.01em;
-        }
+li {
+    margin-bottom: 12px;
+    list-style-position: outside;
+}
 
-        .section-title span {
-            color: var(--accent-cyan);
-        }
+li strong {
+    color: #ffffff;
+}
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
+.placeholder-box {
+    background-color: #0f172a;
+    border: 2px dashed #475569;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    margin: 35px 0;
+}
 
-        .project-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-        }
+.recommendation-card {
+    background: #1e293b;
+    border-left: 4px solid #0ea5e9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
 
-        .project-card:hover {
-            border-color: rgba(6, 182, 212, 0.3);
-        }
+.recommendation-card h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #38bdf8;
+    font-size: 12.5pt;
+}
 
-        .project-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-        }
+.tech-badge {
+    background-color: #334155;
+    color: #f8fafc;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
 
-        .project-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            flex-grow: 1;
-        }
-
-        /* Gomb stílus az átnavigáláshoz */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: var(--transition);
-            background-color: var(--accent-cyan);
-            color: var(--bg-main);
-            border: 1px solid var(--accent-cyan);
-            align-self: flex-start;
-        }
-
-        .btn:hover {
-            background-color: transparent;
-            color: var(--accent-cyan);
-        }
-
-        /* --- FOOTER / KAPCSOLAT --- */
-        footer {
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .footer-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-cyan);
-        }
-
-        @media (max-width: 576px) {
-            .profile-section h1 { font-size: 2rem; }
-            footer { flex-direction: column; text-align: center; }
-            .footer-links a { margin: 0 0.75rem; }
-        }
+p {
+    margin-bottom: 20px;
+}
