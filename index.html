@@ -9,19 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. DIZÁJN RENDSZER & VÁLTOZÓK --- */
+        /* --- DIZÁJN RENDSZER --- */
         :root {
-            --bg-main: #0f172a;       /* 60% - Domináns mély palaszürke háttér */
-            --bg-card: #1e293b;       /* 30% - Struktúra és kártyák háttere */
-            --accent-cyan: #06b6d4;   /* 10% - Funkcionális kiemelő szín (Kizárólag impakt és CTA) */
-            --text-main: #f8fafc;     /* Elsődleges tiszta szöveg */
-            --text-muted: #94a3b8;    /* Másodlagos leíró szöveg */
+            --bg-main: #0f172a;       /* Mély palaszürke háttér */
+            --bg-card: #1e293b;       /* Kártyák háttere */
+            --accent-cyan: #06b6d4;   /* Funkcionális neon-cián kiemelő */
+            --text-main: #f8fafc;     /* Elsődleges szöveg */
+            --text-muted: #94a3b8;    /* Másodlagos szöveg */
             --border-color: rgba(255, 255, 255, 0.05);
-            --max-width: 1200px;
+            --max-width: 1000px;
             --transition: all 0.2s ease-in-out;
         }
 
-        /* --- 2. ALAP STÍLUSOK (RESET & LAYOUT) --- */
         * {
             margin: 0;
             padding: 0;
@@ -44,40 +43,9 @@
             padding: 0 2rem;
         }
 
-        section {
-            padding: 8rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* --- 3. TIPIKUS REPO / STRUKTÚRA ELEMEK --- */
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 3.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .section-title span {
-            color: var(--accent-cyan);
-        }
-
-        /* --- 4. NAVIGÁCIÓ (MINIMALISTA) --- */
+        /* --- LEBUTÍTOTT NAVIGÁCIÓ --- */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 4.5rem;
+            padding: 2rem 0;
         }
 
         .logo {
@@ -90,561 +58,177 @@
             color: var(--accent-cyan);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
+        /* --- BEMUTATKOZÁS (HERO & ABOUT EGYBEN) --- */
+        .profile-section {
+            padding: 4rem 0 6rem 0;
         }
 
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--text-main);
-        }
-
-        /* --- 5. HERO SZEKCIÓ --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 4.5rem;
-        }
-
-        .hero-content {
-            max-width: 850px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
+        .profile-section h1 {
+            font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
         }
 
-        .hero p {
-            font-size: 1.2rem;
+        .profile-section p {
+            font-size: 1.15rem;
             color: var(--text-muted);
-            margin-bottom: 3rem;
-            font-weight: 400;
+            max-width: 800px;
         }
 
-        /* Gombok és Interakciók */
-        .btn-group {
-            display: flex;
-            gap: 1.25rem;
+        /* --- MINIMALISTA PROJEKT RÁCSHÁLÓ --- */
+        .projects-section {
+            padding-bottom: 8rem;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.75rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: var(--transition);
-            cursor: pointer;
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.01em;
         }
 
-        .btn-primary {
-            background-color: var(--accent-cyan);
-            color: var(--bg-main);
-            border: 1px solid var(--accent-cyan);
-        }
-
-        .btn-primary:hover {
-            background-color: transparent;
+        .section-title span {
             color: var(--accent-cyan);
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-main);
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        /* --- 6. TECH STACK (DATA PIPELINE LOGIKA) --- */
-        .stack-grid {
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-        }
-
-        .stack-category {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            border-radius: 6px;
-        }
-
-        .stack-category h3 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 0.5rem;
-        }
-
-        .tech-item {
-            margin-bottom: 1.25rem;
-        }
-
-        .tech-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .tech-name {
-            font-weight: 600;
-            font-size: 1.05rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .tech-desc {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        /* --- 7. PROJEKTEK (ESETTANULMÁNY STRUKTÚRA) --- */
-        .projects-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
         }
 
         .project-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 3rem;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-        }
-
-        @media (min-width: 992px) {
-            .project-card {
-                grid-template-columns: 1fr 280px; /* Helyet biztosít a jobb oldali kiemelt metrikának */
-            }
-        }
-
-        .project-meta h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            padding: 0.2rem 0.6rem;
-            border-radius: 3px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-
-        /* SOW és SMART Alapú fázisok */
-        .sow-pipeline {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .sow-step {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .sow-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .sow-text {
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        /* Kiemelt Metrika Kártya (UI Olvashatósági Elem) */
-        .metric-sidebar {
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background-color: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 2rem;
-            border-radius: 4px;
-            text-align: center;
+            transition: var(--transition);
         }
 
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            line-height: 1;
-            margin-bottom: 0.5rem;
+        .project-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
         }
 
-        .metric-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* --- 8. TÁVMUNKA ALKAMMASSÁG --- */
-        .remote-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .remote-point {
-            border-left: 2px solid var(--accent-cyan);
-            padding-left: 1.5rem;
-        }
-
-        .remote-point h3 {
-            font-size: 1.1rem;
+        .project-card h3 {
+            font-size: 1.3rem;
             margin-bottom: 0.75rem;
         }
 
-        .remote-point p {
+        .project-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* --- 9. KAPCSOLAT --- */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4rem;
-        }
-
-        @media (min-width: 768px) {
-            .contact-layout {
-                grid-template-columns: 1fr 1.2fr;
-            }
-        }
-
-        .contact-details p {
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-        }
-
-        .links-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .profile-link {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
             font-size: 0.95rem;
-            transition: var(--transition);
+            margin-bottom: 2rem;
+            flex-grow: 1;
         }
 
-        .profile-link:hover {
+        /* Gomb stílus az átnavigáláshoz */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: var(--transition);
+            background-color: var(--accent-cyan);
+            color: var(--bg-main);
+            border: 1px solid var(--accent-cyan);
+            align-self: flex-start;
+        }
+
+        .btn:hover {
+            background-color: transparent;
             color: var(--accent-cyan);
         }
 
-        .form-minimal {
+        /* --- FOOTER / KAPCSOLAT --- */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
             display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .input-group label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            font-weight: 600;
         }
 
-        .input-group input,
-        .input-group textarea {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 0.8rem 1rem;
+        .footer-links a {
             color: var(--text-main);
-            font-family: inherit;
-            font-size: 0.95rem;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
             transition: var(--transition);
         }
 
-        .input-group input:focus,
-        .input-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
+        .footer-links a:hover {
+            color: var(--accent-cyan);
         }
 
-        /* --- 10. FOOTER --- */
-        footer {
-            padding: 2.5rem 0;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* --- RESPONSIVE HAMBURGER ELKERÜLÉSE (Letisztult mobil nézet) --- */
         @media (max-width: 576px) {
-            .nav-links { gap: 1.25rem; }
-            .hero h1 { font-size: 2.25rem; }
-            section { padding: 5rem 0; }
-            .project-card { padding: 1.5rem; }
+            .profile-section h1 { font-size: 2rem; }
+            footer { flex-direction: column; text-align: center; }
+            .footer-links a { margin: 0 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="container nav-container">
-            <div class="logo">PORTFOLIO<span>.</span></div>
-            <ul class="nav-links">
-                <li><a href="#stack">Stack</a></li>
-                <li><a href="#projects">Projektek</a></li>
-                <li><a href="#remote">Távmunka</a></li>
-                <li><a href="#contact">Kapcsolat</a></li>
-            </ul>
-        </div>
+    <!-- NAVIGÁCIÓ -->
+    <nav class="container">
+        <div class="logo">PORTFOLIO<span>.</span></div>
     </nav>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Data Analyst specialized in transforming unstructured telemetry into 15%+ retention growth.</h1>
-                <p>Bridging the gap between databases and executive decisions through optimized SQL pipelines and interactive BI dashboards. Ready for remote deployment.</p>
-                <div class="btn-group">
-                    <a href="#projects" class="btn btn-primary">View Case Studies</a>
-                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- BEMUTATKOZÁS -->
+    <main class="container">
+        <section class="profile-section">
+            <h1>Szia, Data Analyst vagyok.</h1>
+            <p>Strukturált, üzlet-orientált gondolkodásmóddal segítem a vállalatokat abban, hogy a nyers adatállományokból logikus, számszerűsíthető döntési pontokat és interaktív riportokat hozzanak létre. Specializációm a távmunka-alapú, aszinkron adattisztítás és vizualizáció.</p>
+        </section>
 
-    <section id="stack">
-        <div class="container">
-            <h2 class="section-title">Technikai Kompetenciák <span>/</span> Pipeline</h2>
-            <div class="stack-grid">
-                
-                <div class="stack-category">
-                    <h3>01. Adatbázis & Lekérdezés</h3>
-                    <div class="tech-item">
-                        <div class="tech-name">SQL (PostgreSQL, MySQL)</div>
-                        <div class="tech-desc">Komplex JOIN-ok, ablakfüggvények és lekérdezés-optimalizálás.</div>
-                    </div>
-                    <div class="tech-item">
-                        <div class="tech-name">BigQuery</div>
-                        <div class="tech-desc">Nagy kiterjedésű, felhőalapú adatállományok particionálása és kezelése.</div>
-                    </div>
-                </div>
+        <!-- PROJEKTEK LISTÁJA -->
+        <section class="projects-section">
+            <h2 class="section-title">Kiemelt projektek <span>.</span></h2>
+            <div class="projects-grid">
 
-                <div class="stack-category">
-                    <h3>02. Tisztítás & Szkriptelés</h3>
-                    <div class="tech-item">
-                        <div class="tech-name">Python (Pandas, NumPy)</div>
-                        <div class="tech-desc">Hiányzó értékek kezelése, anomália-detekció és ET-folyamatok.</div>
-                    </div>
-                    <div class="tech-item">
-                        <div class="tech-name">Git</div>
-                        <div class="tech-desc">Verziókövetés, transzparens ágkezelés és tiszta kóddokumentáció.</div>
-                    </div>
-                </div>
-
-                <div class="stack-category">
-                    <h3>03. Vizualizáció & BI</h3>
-                    <div class="tech-item">
-                        <div class="tech-name">Power BI / Tableau</div>
-                        <div class="tech-desc">Interaktív, vezetői dashboardok fejlesztése és DAX/LOD kalkulációk.</div>
-                    </div>
-                    <div class="tech-item">
-                        <div class="tech-name">Excel & Spreadsheets</div>
-                        <div class="tech-desc">Haladó üzleti modellezés, Pivot-táblák és automatizált riportok.</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title">Esettanulmányok <span>.</span></h2>
-            <div class="projects-list">
-
+                <!-- 1. Projekt Kártya -->
                 <div class="project-card">
-                    <div class="project-meta">
-                        <h3>Case Study - Cyclistic Bike-Share Analysis</h3>
-                        <div class="tech-tags">
-                            <span class="tag">SQL</span>
-                            <span class="tag">PYTHON</span>
-                            <span class="tag">TABLEAU</span>
-                        </div>
-                        
-                        <div class="sow-pipeline">
-                            <div class="sow-step">
-                                <span class="sow-label">A) Business Problem</span>
-                                <span class="sow-text">A webáruház kosárelhagyási aránya a harmadik negyedévben kritikusan magas, 45%-os szintre emelkedett, ami közvetlen bevételkiesést okozott.</span>
-                            </div>
-                            <div class="sow-step">
-                                <span class="sow-label">B) Data Cleaning / Processing</span>
-                                <span class="sow-text">Python (Pandas) segítségével konszolidáltam a duplikált felhasználói logfájlokat, kezeltem a hiányzó adatokat, majd SQL alapú kohorsz-analízissel strukturáltam az adatbázist.</span>
-                            </div>
-                            <div class="sow-step">
-                                <span class="sow-label">C) Analysis / BI</span>
-                                <span class="sow-text">Tableau dashboardon vizualizáltam a lemorzsolódási tölcsért. Az adatok feltárták, hogy a fizetési kapu lassulása okozza a lemorzsolódások 60%-át.</span>
-                            </div>
-                        </div>
-                        <a href="https://bturnai.github.io/bike_sharing.html" target="_blank" class="btn btn-secondary"> Bike Projekt</a>
+                    <div>
+                        <h3>Cyclistic Bike-Share Analysis</h3>
+                        <p>12 hónapos utazási adatbázis tisztítása és elemzése Python és SQL segítségével a felhasználói szokások és konverziós lehetőségek feltárására.</p>
                     </div>
-                    
-                    <div class="metric-sidebar">
-                        <span class="sow-label">D) Impact</span>
-                        <div>
-                            <div class="metric-value">-12%</div>
-                            <div class="metric-label">Kosárelhagyás</div>
-                        </div>
-                        <span class="tech-desc">Vezetői UX döntések támogatása adatokkal.</span>
-                    </div>
+                    <!-- Átnavigálás a konkrét esettanulmány oldalára -->
+                    <a href="cyclistic-case-study.html" class="btn">View Case Study</a>
                 </div>
 
+                <!-- 2. Projekt Kártya -->
                 <div class="project-card">
-                    <div class="project-meta">
-                        <h3>Logisztikai Ellátási Lánc Predikció</h3>
-                        <div class="tech-tags">
-                            <span class="tag">SQL</span>
-                            <span class="tag">EXCEL</span>
-                            <span class="tag">BIGQUERY</span>
-                        </div>
-                        
-                        <div class="sow-pipeline">
-                            <div class="sow-step">
-                                <span class="sow-label">A) Business Problem</span>
-                                <span class="sow-text">A raktárkészlet túlcsordulása és az üresjáratok havi szinten jelentős extra tárolási költségeket generáltak a szezonalitás pontatlan előrejelzése miatt.</span>
-                            </div>
-                            <div class="sow-step">
-                                <span class="sow-label">B) Data Cleaning / Processing</span>
-                                <span class="sow-text">Több mint 1 millió soros historikus szállítási adatbázis particionálása és tisztítása BigQuery-ben, a kiugró anomáliák kiszűrésével.</span>
-                            </div>
-                            <div class="sow-step">
-                                <span class="sow-label">C) Analysis / BI</span>
-                                <span class="sow-text">Haladó prediktív modellek implementálása Excel környezetben a szezonalitási indexek és trendvonalak pontos meghatározására.</span>
-                            </div>
-                        </div>
-                        <a href="https://github.com" target="_blank" class="btn btn-secondary">View Case Study</a>
+                    <div>
+                        <h3>E-Commerce Conversion Optimization</h3>
+                        <p>Webáruházi kosárelhagyások keresztanalízise és interaktív Tableau vezetői dashboard kidolgozása a lemorzsolódási pontok azonosítására.</p>
                     </div>
-                    
-                    <div class="metric-sidebar">
-                        <span class="sow-label">D) Impact</span>
-                        <div>
-                            <div class="metric-value">-18%</div>
-                            <div class="metric-label">Tárolási Költség</div>
-                        </div>
-                        <span class="tech-desc">Optimalizált beszerzési terv és készletkezelés.</span>
-                    </div>
+                    <a href="ecommerce-case-study.html" class="btn">View Case Study</a>
                 </div>
 
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section id="remote">
-        <div class="container">
-            <h2 class="section-title">Remote-Ready Hatékonyság <span>/</span> Bizonyítékok</h2>
-            <div class="remote-grid">
-                
-                <div class="remote-point">
-                    <h3>Önálló problémamegoldás</h3>
-                    <p>Az üzleti célok mentén önállóan határozom meg az elemzési lépéseket. Nem igényelek folyamatos mikromenedzsmentet a feladatok végrehajtásához.</p>
-                </div>
-
-                <div class="remote-point">
-                    <h3>Transzparens dokumentáció</h3>
-                    <p>Minden lekérdezést és szkriptet verziókövetetten, tiszta kommentekkel ellátva adok át GitHubon, biztosítva a zökkenőmentes aszinkron csapatmunkát.</p>
-                </div>
-
-                <div class="remote-point">
-                    <h3>Üzlet-orientált szemlélet</h3>
-                    <p>Nem csupán technikai kódokat írok. Minden elemzésnél a mögöttes üzleti értéket, a költségcsökkentési vagy bevételnövelési lehetőségeket keresem.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Kapcsolatfelvétel <span>.</span></h2>
-            <div class="contact-layout">
-                
-                <div class="contact-details">
-                    <p>Nyitott vagyok nemzetközi és hazai távmunkára (Full Remote), valamint célzott projektalapú megbízásokra.</p>
-                    <div class="links-stack">
-                        <a href="https://linkedin.com" target="_blank" class="profile-link">→ LinkedIn</a>
-                        <a href="https://github.com" target="_blank" class="profile-link">→ GitHub</a>
-                        <a href="https://public.tableau.com" target="_blank" class="profile-link">→ Tableau Public</a>
-                    </div>
-                </div>
-
-                <form class="form-minimal" action="#" method="POST" onsubmit="alert('Üzenet elküldve.'); return false;">
-                    <div class="input-group">
-                        <label for="name">Név</label>
-                        <input type="text" id="name" required placeholder="Név vagy Vállalat">
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required placeholder="email@domain.com">
-                    </div>
-                    <div class="input-group">
-                        <label for="message">Üzenet</label>
-                        <textarea id="message" rows="4" required placeholder="Projekt leírása vagy megkeresés célja..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Üzenet küldése</button>
-                </form>
-
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Data Analyst Portfolio. Clean, functional code built for performance.</p>
+    <!-- FOOTER / MINIMÁLIS KAPCSOLAT LINK -->
+    <footer class="container">
+        <div>&copy; 2026 Data Analyst Portfolio.</div>
+        <div class="footer-links">
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            <a href="https://github.com" target="_blank">GitHub</a>
+            <a href="mailto:email@domain.com">Email</a>
         </div>
     </footer>
 
