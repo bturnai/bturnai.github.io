@@ -7,7 +7,178 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- DIZÁJN RENDSZER --- */
+        :root {
+            --bg-main: #0f172a;       /* Mély palaszürke háttér */
+            --bg-card: #1e293b;       /* Kártyák háttere */
+            --accent-cyan: #06b6d4;   /* Funkcionális neon-cián kiemelő */
+            --text-main: #f8fafc;     /* Elsődleges szöveg */
+            --text-muted: #94a3b8;    /* Másodlagos szöveg */
+            --border-color: rgba(255, 255, 255, 0.05);
+            --max-width: 1000px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- LEBUTÍTOTT NAVIGÁCIÓ --- */
+        nav {
+            padding: 2rem 0;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .logo span {
+            color: var(--accent-cyan);
+        }
+
+        /* --- BEMUTATKOZÁS (HERO & ABOUT EGYBEN) --- */
+        .profile-section {
+            padding: 4rem 0 6rem 0;
+        }
+
+        .profile-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-section p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 800px;
+        }
+
+        /* --- MINIMALISTA PROJEKT RÁCSHÁLÓ --- */
+        .projects-section {
+            padding-bottom: 8rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title span {
+            color: var(--accent-cyan);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Gomb stílus az átnavigáláshoz */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: var(--transition);
+            background-color: var(--accent-cyan);
+            color: var(--bg-main);
+            border: 1px solid var(--accent-cyan);
+            align-self: flex-start;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent-cyan);
+        }
+
+        /* --- FOOTER / KAPCSOLAT --- */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        @media (max-width: 576px) {
+            .profile-section h1 { font-size: 2rem; }
+            footer { flex-direction: column; text-align: center; }
+            .footer-links a { margin: 0 0.75rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -25,7 +196,7 @@
 
         <!-- PROJEKTEK LISTÁJA -->
         <section class="projects-section">
-            <h2 class="section-title">Kiemelt projektek <span>.</span></h2>
+            <h2 class="section-title">Projects <span>.</span></h2>
             <div class="projects-grid">
 
                 <!-- 1. Projekt Kártya -->
@@ -41,8 +212,8 @@
                 <!-- 2. Projekt Kártya -->
                 <div class="project-card">
                     <div>
-                        <h3>E-Commerce Conversion Optimization</h3>
-                        <p>Webáruházi kosárelhagyások keresztanalízise és interaktív Tableau vezetői dashboard kidolgozása a lemorzsolódási pontok azonosítására.</p>
+                        <h3>Other project</h3>
+                        <p>Description of the other project.</p>
                     </div>
                     <a href="ecommerce-case-study.html" class="btn">View Case Study</a>
                 </div>

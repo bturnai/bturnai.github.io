@@ -16,7 +16,7 @@
             <h1>Cyclistic Bike-Share Analysis:<br><span style="color: #4a5568; font-size: 18pt; font-weight: normal;">Converting Casual Riders to Annual Subscribers</span></h1>
             
             <div class="hook">
-                <strong>A Horog:</strong> Adatvezérelt stratégia a Cyclistic alkalmi kerékpárosainak éves bérletvásárlóvá konvertálására. 12 havi utazási adat Python- és Tableau-alapú elemzésével azonosítottam a felhasználói szokások eltéréseit, megalapozva egy célzott marketingkampányt.
+                <strong>The goal:</strong> A data-driven strategy to convert Cyclistic's casual cyclists into annual pass buyers. I identified differences in user habits using Python and Tableau-based analysis of 12 months of travel data, establishing the basis for a targeted marketing campaign.
             </div>
         </header>
 
@@ -48,15 +48,29 @@
         <p>Aggregated analysis revealed structural divergence in user behavior and ride cadence between the two cohorts:</p>
         
         <ul>
-            <li><strong>The Commuter Footprint (Members):</strong> Annual member usage heavily clusters around standard commuting windows (<strong>06:00–09:00</strong> and **15:00–19:00**) on weekdays, confirming utility-driven transit patterns.</li>
+            <li><strong>The Commuter Footprint (Members):</strong> Annual member usage heavily clusters around standard commuting windows (<strong>06:00–09:00</strong> and <strong>15:00–19:00</strong>) on weekdays, confirming utility-driven transit patterns.</li>
+                <div class="placeholder-box">
+                <!-- <img src="allRiders_heatmap.png" alt="All riders heatmap" style="width: 100%; border-radius: 8px;">       -->
+                    <img src="member_heatmap.png" alt="Member heatmap" style="width: 100%; border-radius: 8px;">        
+                </div>
             <li><strong>The Leisure Footprint (Casuals):</strong> Casual rider volume peaks sharply during weekends (<strong>09:00–18:00</strong>) and late-afternoon leisure windows on weekdays. A localized sub-trend also emerged during late-night hours on Fridays and Saturdays, isolating a weekend nightlife demographic.</li>
-            <li><strong>Duration Metrics:</strong> Casual riders maintain significantly higher trip durations, averaging over 10 minutes longer per ride than annual members.</li>
+                <div class="placeholder-box">
+                    <img src="casual_heatmap.png" alt="Casual heatmap" style="width: 100%; border-radius: 8px;">
+                </div>
+
+            <li><strong>Duration Metrics:</strong> Despite lower ride counts, casual riders maintain a substantially higher average time spent per trip compared to annual members.</li>
+            <div class="placeholder-box">
+                <img src="totalRides_line.png" alt="Line chart showing differences" style="width: 100%; border-radius: 8px;">        
+                <img src="avgMinutes_line.png" alt="Line chart showing differences" style="width: 100%; border-radius: 8px;">        
+            </div>
+            <li><strong>The Summer Seasonality Spike (Casuals):</strong> While annual members maintain consistent usage patterns year-round, casual rider duration surges dramatically with the onset of the summer season. Time-series analysis shows a massive spike triggered by warmer weather and high-density Chicago public events—such as major music festivals (e.g., Lollapalooza), waterfront activities, and community running races. During this peak window, casual riders completely dominate engagement metrics, shifting from standard A-to-B transit to extensive, leisure-oriented exploration.</li>
+            <div class="placeholder-box">
+                
+                <img src="ridedHours_line.png" alt="Line chart showing differences" style="width: 100%; border-radius: 8px;">        
+            </div>
         </ul>
 
-        <div class="placeholder-box">
-            [INSERT YOUR TABLEAU DASHBOARD SCREENSHOT / EMBED LINK HERE]
-        </div>
-
+        
         <h2>Strategic Recommendations</h2>
         <p>Based on the insight gaps identified in the data, I propose the following 3 strategic recommendations for Cyclistic's management:</p>
 

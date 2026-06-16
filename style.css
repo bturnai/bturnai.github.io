@@ -1,73 +1,82 @@
+/* Globális alapbeállítások a dobozmodellhez */
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
+/* A teljes oldal háttere és alap betűstílusa */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.7;
-    color: #cbd5e0; /* Lágy szürkésfehér törzsszöveg */
-    background-color: #0f172a; /* Mély sötétkék alap */
+    color: #cbd5e0; /* Kellemes, lágy szürkésfehér szövegszín */
+    background-color: #0f172a; /* Mély sötétkék (slate) háttér */
     margin: 0;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
+/* A központi tartalom kártyája - ez különül el gyönyörűen a háttértől */
 .container {
     max-width: 900px;
-    margin: 40px auto;
-    background: #1e293b; /* Világosabb kártya háttér a szöveg kiemelésére */
+    margin: 0 auto;
+    background: #1e293b; /* Kicsit világosabb, elegáns kékesszürke kártya háttér */
     padding: 50px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Fejléc elrendezése */
 header {
     border-bottom: 1px solid #334155;
     padding-bottom: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 }
 
 h1 {
     font-size: 26pt;
-    color: #ffffff;
+    color: #ffffff; /* Hófehér főcím */
     margin-top: 0;
     margin-bottom: 10px;
     line-height: 1.2;
+    font-weight: 700;
 }
 
 .subtitle {
     font-size: 18pt;
-    color: #94a3b8;
-    font-weight: normal;
+    color: #94a3b8; /* Halványabb alcím */
+    font-weight: 400;
     display: block;
     margin-bottom: 20px;
 }
 
+/* A Horog (The Hook) kiemelt, modern doboza */
 .hook-box {
     font-size: 11.5pt;
     font-style: italic;
     color: #e2e8f0;
-    background-color: rgba(30, 64, 175, 0.3); /* Áttetsző kék dizájn elem */
-    border-left: 4px solid #3b82f6;
+    background-color: rgba(56, 189, 248, 0.1); /* Nagyon finom, áttetsző világoskék fény */
+    border-left: 4px solid #38bdf8; /* Markáns neonkék bal oldali csík */
     padding: 20px;
-    margin: 25px 0 0 0;
+    margin-top: 25px;
     border-radius: 0 8px 8px 0;
 }
 
+/* Fő fejezetcímek (Ask, Process, Insights...) */
 h2 {
-    font-size: 16pt;
-    color: #38bdf8; /* Világoskék címsorok */
-    margin-top: 45px;
+    font-size: 15pt;
+    color: #38bdf8; /* Világító kék kód-esztétika */
+    margin-top: 50px;
     margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    font-weight: 600;
 }
 
+/* Executive Summary (TL;DR) blokk */
 .summary-box {
-    background-color: #0f172a;
+    background-color: #0f172a; /* Beágyazott mély sötétkék doboz */
     border: 1px solid #334155;
     border-radius: 8px;
-    padding: 25px 30px;
-    margin-bottom: 40px;
+    padding: 30px;
+    margin-bottom: 45px;
 }
 
 .summary-box h3 {
@@ -76,52 +85,55 @@ h2 {
     font-size: 13pt;
     border-bottom: 1px solid #334155;
     padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-/* Listák precíz igazítása, hogy a pontok ne lógjanak ki balra */
-ul {
-    padding-left: 20px;
-    margin-top: 10px;
     margin-bottom: 20px;
 }
 
+/* LISTÁK JAVÍTÁSA: Nem lógnak ki balra, tökéletesen igazodnak a címekhez */
+ul {
+    padding-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
 li {
-    margin-bottom: 12px;
-    list-style-position: outside;
+    margin-bottom: 14px;
+    list-style-position: outside; /* Biztosítja, hogy a szöveg ne csússzon a pötty alá */
 }
 
 li strong {
-    color: #ffffff;
+    color: #ffffff; /* A listákon belüli kulcsszavak tiszta fehérek a maximális szkennelhetőségért */
 }
 
+/* Tableau / Kép helyőrző doboz */
 .placeholder-box {
     background-color: #0f172a;
     border: 2px dashed #475569;
     border-radius: 8px;
-    padding: 40px;
+    padding: 45px;
     text-align: center;
     color: #94a3b8;
     font-style: italic;
-    margin: 35px 0;
+    margin: 40px 0;
 }
 
+/* Stratégiai javaslatok kártyái */
 .recommendation-card {
     background: #1e293b;
     border-left: 4px solid #0ea5e9;
-    padding: 20px;
+    padding: 22px;
     margin-bottom: 20px;
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
 }
 
 .recommendation-card h4 {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #38bdf8;
-    font-size: 12.5pt;
+    font-size: 13pt;
 }
 
+/* Kis technológiai címkék stílusa (Python, Tableau...) */
 .tech-badge {
     background-color: #334155;
     color: #f8fafc;
@@ -132,5 +144,6 @@ li strong {
 }
 
 p {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    color: #cbd5e0;
 }
