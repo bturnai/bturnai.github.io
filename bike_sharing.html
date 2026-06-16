@@ -3,184 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Study - Cyclistic Bike-Share Analysis</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>Cyclistic Bike-Share Case Study - Data Analytics Portfolio</title>
     <style>
-        :root {
-            --bg-main: #0f172a;
-            --bg-card: #1e293b;
-            --accent-cyan: #06b6d4;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.05);
-            --max-width: 900px;
-            --transition: all 0.2s ease-in-out;
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
-
-        * {
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f7fafc;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            padding-top: 5rem;
         }
 
         .container {
-            width: 100%;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* --- NAVIGÁCIÓ --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 4.5rem;
-        }
-
-        .back-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .back-link:hover {
-            color: var(--accent-cyan);
+            max-width: 850px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
         header {
-            padding: 4rem 0 2rem 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
+        h1 {
+            font-size: 24pt;
+            color: #1a365d;
+            margin-top: 0;
+            margin-bottom: 15px;
             line-height: 1.2;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-        .content-section {
-            padding: 3rem 0;
-            border-bottom: 1px solid var(--border-color);
         }
 
-        .content-section h2 {
-            font-size: 1.35rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
+        .hook {
+            font-size: 12pt;
+            font-style: italic;
+            color: #4a5568;
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
         }
 
-        .content-section p {
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
+        h2 {
+            font-size: 16pt;
+            color: #2c5282;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .content-section ol {
-            padding-left: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
+        .summary-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
         }
 
-        .content-section li {
-            margin-bottom: 1rem;
-            font-size: 1.05rem;
+        .summary-box h3 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 13pt;
         }
 
-        .content-section strong {
-            color: var(--accent-cyan);
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
         }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 4rem 0 2rem 0;
+        li {
+            margin-bottom: 8px;
+        }
+
+        li strong {
+            color: #1a202c;
+        }
+
+        .placeholder-box {
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 6px;
+            padding: 30px;
             text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            color: #718096;
+            font-style: italic;
+            margin: 25px 0;
+        }
+
+        .recommendation {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .recommendation h4 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #2b6cb0;
+            font-size: 12pt;
+        }
+        
+        .tech-badge {
+            background-color: #edf2f7;
+            color: #4a5568;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="container nav-container">
-            <a href="index.html" class="back-link">← Back to Portfolio</a>
-            <div class="back-link">Case Study</div>
-        </div>
-    </nav>
+    <div class="container">
+        <header>
+            <h1>Cyclistic Bike-Share Analysis:<br><span style="color: #4a5568; font-size: 18pt; font-weight: normal;">Converting Casual Riders to Annual Subscribers</span></h1>
+            
+            <div class="hook">
+                <strong>A Horog:</strong> Adatvezérelt stratégia a Cyclistic alkalmi kerékpárosainak éves bérletvásárlóvá konvertálására. 12 havi utazási adat Python- és Tableau-alapú elemzésével azonosítottam a felhasználói szokások eltéréseit, megalapozva egy célzott marketingkampányt.
+            </div>
+        </header>
 
-    <header class="container">
-        <h1>Cyclistic Bike-Share Analysis: Converting Casual Riders to Annual Subscribers</h1>
-    </header>
+        <section class="summary-box">
+            <h3>Executive Summary (TL;DR)</h3>
+            <ul>
+                <li><strong>The Problem:</strong> Cyclistic aims to maximize profit by converting casual weekend/leisure riders into high-margin annual members.</li>
+                <li><strong>The Tech Stack:</strong> <span class="tech-badge">Python (Pandas)</span> for high-volume data cleaning and feature engineering; <span class="tech-badge">Tableau</span> for executive-level business intelligence.</li>
+                <li><strong>The Impact:</strong> Discovered distinct utility vs. leisure behavior, leading to 3 actionable marketing interventions designed to capture peak-season revenue.</li>
+            </ul>
+        </section>
 
-    <main class="container">
+        <h2>Business Problem & Context</h2>
+        <p>This analysis evaluates 12 months of historical trip data provided by Motivate International Inc. to drive annual subscriber growth.</p>
+        <p>To comply with strict data privacy standards, all personally identifiable information (PII) was omitted at the source. This restriction shifted the analytical focus from individual tracking to aggregated, high-density behavior patterns across Chicago.</p>
+
+        <h2>Data Cleaning & Processing (Scalable Data Engineering)</h2>
+        <p>Due to the multi-gigabyte volume of the 12-month dataset, standard spreadsheet applications failed to process the load, necessitating <strong>Python (Pandas)</strong> for data pipeline engineering.</p>
         
-        <section class="content-section">
-            <h2>Business Problem & Context</h2>
-            <p>This analysis evaluates 12 months of historical trip data to convert casual riders into annual subscribers. The strategic focus is identifying behavioral differences between casual riders and annual members during major Chicago public events to design targeted marketing interventions. The raw dataset, provided by Motivate International Inc. , consists of monthly CSV files containing transaction-level data: unique ride IDs, bike types, timestamps, and docking station telemetry. To comply with data privacy standards, all personally identifiable information (PII) is omitted at the source. This restriction prevents tracking unique users, credit cards, or residential zip codes, shifting the analytical focus from individual user histories to aggregated, high-density event-day behavior.</p>
-        </section>
+        <p><strong>Key Technical Milestones:</strong></p>
+        <ul>
+            <li><strong>Data Integration:</strong> Programmatically merged 12 distinct monthly CSV files into a single consolidated annual dataframe.</li>
+            <li><strong>Feature Engineering:</strong> Generated <code>ride_length</code> (trip duration) and <code>day_of_week</code> to isolate granular usage patterns.</li>
+            <li><strong>Data Auditing & Filtering:</strong> Targeted and removed systematic anomalies, including negative trip durations and ultra-short trips (&lt;30 seconds) with identical start/end stations (indicating mechanical faults).</li>
+            <li><strong>Null-Value Handling:</strong> Isolated missing station telemetry data specific to electric bikes to protect the spatial integrity of the analysis.</li>
+        </ul>
 
+        <h2>Analysis & BI Insights</h2>
+        <p>Aggregated analysis revealed structural divergence in user behavior and ride cadence between the two cohorts:</p>
+        
+        <ul>
+            <li><strong>The Commuter Footprint (Members):</strong> Annual member usage heavily clusters around standard commuting windows (<strong>06:00–09:00</strong> and **15:00–19:00**) on weekdays, confirming utility-driven transit patterns.</li>
+            <li><strong>The Leisure Footprint (Casuals):</strong> Casual rider volume peaks sharply during weekends (<strong>09:00–18:00</strong>) and late-afternoon leisure windows on weekdays. A localized sub-trend also emerged during late-night hours on Fridays and Saturdays, isolating a weekend nightlife demographic.</li>
+            <li><strong>Duration Metrics:</strong> Casual riders maintain significantly higher trip durations, averaging over 10 minutes longer per ride than annual members.</li>
+        </ul>
 
-        <section class="content-section">
-            <h2>Data Cleaning & Processing</h2>
-            <p>Due to the multi-gigabyte volume of the 12-month dataset, standard spreadsheet applications failed to process individual monthly files, necessitating Python (Pandas) for scalable data engineering. The 12 distinct monthly files were programmatically merged into a single annual dataframe, and data types across all columns were validated and corrected. Two engineered features were generated: ride_length (calculating trip duration from start and end timestamps) and day_of_week (extracting the specific day of departure).</p>
-            <p>Data auditing revealed systematic anomalies that required targeted filtering to ensure analysis integrity. Outliers including negative trip durations and ultra-short trips under 30 seconds where the start and end stations were identical—indicating immediate returns due to mechanical faults—were removed. Chronological integrity was confirmed, verifying all timestamps fell strictly within the target date range. Final structural checks identified missing values primarily concentrated in the station telemetry (station_id, name, and coordinates) of electric bikes, which were isolated to prevent skewing the subsequent spatial analysis.</p>
-        </section>
-
-
-        <section class="content-section">
-            <h2>Analysis & BI Insights</h2>
-            <p>Aggregated pivot tables and time-series heat maps revealed structural divergence in user behavior and ride cadence. Descriptive analysis indicates that casual riders maintain significantly higher trip durations, averaging over 10 minutes longer per ride than annual members, and clocking up to twice the total ride time throughout most of the year. Hourly and weekly heat maps expose distinct operational footprints: annual member usage heavily clusters around standard commuting windows—surging between 06:00–09:00 and 15:00–19:00 on weekdays—confirming utility-driven, work-to-home transit patterns. Conversely, casual rider volume peaks sharply during weekends from 09:00–18:00 and windows of late-afternoon leisure on weekdays (16:00–19:00). A localized sub-trend also emerged in casual data during late-night and early-morning hours on Fridays and Saturdays, isolating a distinct weekend nightlife demographic.</p>
-        </section>
-
-
-        <section class="content-section">
-            <h2>Strategic Recommendations</h2>
-            <p>Based on the insights gaps identified in the data, I propose the following 3 strategic recommendations for Cyclistic's management:</p>
-            <ol>
-                <li><strong>Proactive Campaign Timing:</strong> Data shows that casual rides start to surge in May and remain peak until September. I recommend launching the marketing campaign in mid-April to capture users right before the high season starts, converting them into annual members before May begins.</li>
-                <li><strong>Targeted Lifestyle Marketing:</strong> Since casual riders exhibit a clear weekend and leisure usage pattern, marketing messages should emphasize freedom, speed, and weekend fun. The campaign must highlight that for regular weekend riding, an annual membership is the most seamless and cost-effective option available.</li>
-                <li><strong>The 15-Minute E-Bike "Hook" Strategy:</strong> The average trip duration for casual riders is 21 minutes, making pay-per-minute fees a significant pain point during summer. I recommend introducing 1 daily 15-minute free e-mobility (scooter/e-bike) session exclusive to annual members. Because this is lower than their 21-minute average, riders will naturally spill over the limit and pay the regular minute rates for the remaining time (and for any subsequent rides). This psychological anchor will drive high annual conversions while protecting and generating extra company revenue.</li>
-            </ol>
-        </section>
-
-    </main>
-
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Data Analyst Portfolio. All rights reserved.</p>
+        <div class="placeholder-box">
+            [INSERT YOUR TABLEAU DASHBOARD SCREENSHOT / EMBED LINK HERE]
         </div>
-    </footer>
+
+        <h2>Strategic Recommendations</h2>
+        <p>Based on the insight gaps identified in the data, I propose the following 3 strategic recommendations for Cyclistic's management:</p>
+
+        <div class="recommendation">
+            <h4>1. Proactive Campaign Timing</h4>
+            <p>Data shows that casual rides surge in May and peak until September. Launch the marketing campaign in mid-April to convert users into annual members right before the high season starts.</p>
+        </div>
+
+        <div class="recommendation">
+            <h4>2. Targeted Lifestyle Marketing</h4>
+            <p>Emphasize freedom, speed, and weekend fun in marketing collateral. The campaign must highlight that for regular weekend riding, an annual membership is the most seamless and cost-effective option available.</p>
+        </div>
+
+        <div class="recommendation">
+            <h4>3. The 15-Minute E-Bike "Hook" Strategy</h4>
+            <p>The average trip duration for casual riders is 21 minutes, making pay-per-minute fees a significant pain point. Introduce 1 daily 15-minute free e-mobility session exclusive to annual members. Because this is lower than their 21-minute average, riders will naturally spill over the limit and pay regular minute rates, driving high annual conversions while generating extra revenue.</p>
+        </div>
+    </div>
 
 </body>
 </html>
