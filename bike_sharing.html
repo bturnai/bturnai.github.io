@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Study - Divvy</title>
+    <title>Case Study - Cyclistic Bike-Share</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,34 +13,43 @@
 
     <div class="container">
         <header>
-            <h1>Cyclistic Bike-Share Analysis:<br><span style="color: #4a5568; font-size: 18pt; font-weight: normal;">Converting Casual Riders to Annual Subscribers</span></h1>
+            <h1>Cyclistic Bike-Share Analysis:<br><span style="color: #94a3b8; font-size: 18pt; font-weight: normal;">Converting Casual Riders to Annual Subscribers</span></h1>
             
-            <div class="hook">
+            <div class="hook-box">
                 <strong>The goal:</strong> A data-driven strategy to convert Cyclistic's casual cyclists into annual pass buyers. I identified differences in user habits using Python and Tableau-based analysis of 12 months of travel data, establishing the basis for a targeted marketing campaign.
             </div>
+            
+            <!-- <div class="placeholder-box" style=""> -->
+                <img src="pictures/dashboard.png" alt="Executive Dashboard Overview" style="width: 50%; border-radius: 8px; display: block; margin: 0;text-align: left;margin-top: 20px;">      
+            <!-- </div> -->
         </header>
 
-        <section class="summary-box">
-            <h3>Executive Summary (TL;DR)</h3>
-            <ul>
-                <li><strong>The Problem:</strong> Cyclistic aims to maximize profit by converting casual weekend/leisure riders into high-margin annual members.</li>
-                <li><strong>The Tech Stack:</strong> <span class="tech-badge">Python (Pandas)</span> for high-volume data cleaning and feature engineering; <span class="tech-badge">Tableau</span> for executive-level business intelligence.</li>
-                <li><strong>The Impact:</strong> Discovered distinct utility vs. leisure behavior, leading to 3 actionable marketing interventions designed to capture peak-season revenue.</li>
-            </ul>
-        </section>
+        <!-- <section class="summary-box"> -->
+            <!-- <h3>Executive Summary (TL;DR)</h3> -->
+            <!-- <ul> -->
+                <!-- <li><strong>The Problem:</strong> Cyclistic aims to maximize profit by converting casual weekend/leisure riders into high-margin annual members.</li> -->
+                <!-- <li><strong>The Tech Stack:</strong> <span class="tech-badge">Python (Pandas)</span> for high-volume data cleaning and feature engineering; <span class="tech-badge">Tableau</span> for executive-level business intelligence.</li> -->
+                <!-- <li><strong>The Impact:</strong> Discovered distinct utility vs. leisure behavior, leading to 3 actionable marketing interventions designed to capture peak-season revenue.</li> -->
+            <!-- </ul> -->
+        <!-- </section> -->
 
         <h2>Business Problem & Context</h2>
-        <p>This analysis evaluates 12 months of historical trip data provided by Motivate International Inc. to drive annual subscriber growth.</p>
-        <p>To comply with strict data privacy standards, all personally identifiable information (PII) was omitted at the source. This restriction shifted the analytical focus from individual tracking to aggregated, high-density behavior patterns across Chicago.</p>
+        <p>Cyclistic is a successful bike-share program in Chicago that features a network of more than 5,800 bicycles and 600 docking stations. The company's finance analysts have concluded that annual members are much more profitable than casual riders, who only purchase single-ride or full-day passes.   </p>
+        <p>Design marketing strategies aimed at converting casual riders into annual members. In order to do that, however, the team needs to better understand how annual members and casual riders differ, why casual riders would buy a membership, and how digital media could affect their marketing tactics.</p>
+        
+        <h2>Data Overview</h2>
+        <p>This analysis utilizes 12 months of public, historical trip data provided by Motivate International Inc. Structured in monthly files detailing specific trip metrics, the dataset is highly credible and unbiased, generated directly by the bike-share system's geotracking infrastructure. Data integrity was verified by standardizing column formats and running descriptive statistics. To ensure security, all Personally Identifiable Information (PII) has been excluded. While this strict privacy measure protects users, it presents a minor analytical limitation, as it prevents tracking repeat casual riders or linking pass purchases to specific individuals.</p>
+        
+        <h2>Data Aggregation & Pipeline Automation with Python</h2>
 
-        <h2>Data Cleaning & Processing (Scalable Data Engineering)</h2>
+        <img src="pictures/process.jpg" alt="Executive Dashboard Overview" style="width: 75%; border-radius: 8px; display: block; margin: 0;text-align: left;margin-top: 20px;">      
         <p>Due to the multi-gigabyte volume of the 12-month dataset, standard spreadsheet applications failed to process the load, necessitating <strong>Python (Pandas)</strong> for data pipeline engineering.</p>
         
         <p><strong>Key Technical Milestones:</strong></p>
         <ul>
             <li><strong>Data Integration:</strong> Programmatically merged 12 distinct monthly CSV files into a single consolidated annual dataframe.</li>
             <li><strong>Feature Engineering:</strong> Generated <code>ride_length</code> (trip duration) and <code>day_of_week</code> to isolate granular usage patterns.</li>
-            <li><strong>Data Auditing & Filtering:</strong> Targeted and removed systematic anomalies, including negative trip durations and ultra-short trips (&lt;30 seconds) with identical start/end stations (indicating mechanical faults).</li>
+            <li><strong>Data Auditing & Filtering:</strong>Targeted and removed systematic anomalies, including negative trip durations, ultra-short trips (<30 seconds) with identical start/end stations indicating mechanical faults, and excessively long trips exceeding the 99th percentile, which likely represent stolen bikes or system errors.</li>
             <li><strong>Null-Value Handling:</strong> Isolated missing station telemetry data specific to electric bikes to protect the spatial integrity of the analysis.</li>
         </ul>
 
@@ -49,45 +58,65 @@
         
         <ul>
             <li><strong>The Commuter Footprint (Members):</strong> Annual member usage heavily clusters around standard commuting windows (<strong>06:00–09:00</strong> and <strong>15:00–19:00</strong>) on weekdays, confirming utility-driven transit patterns.</li>
-                <div class="placeholder-box">
-                <!-- <img src="allRiders_heatmap.png" alt="All riders heatmap" style="width: 100%; border-radius: 8px;">       -->
-                    <img src="member_heatmap.png" alt="Member heatmap" style="width: 100%; border-radius: 8px;">        
-                </div>
             <li><strong>The Leisure Footprint (Casuals):</strong> Casual rider volume peaks sharply during weekends (<strong>09:00–18:00</strong>) and late-afternoon leisure windows on weekdays. A localized sub-trend also emerged during late-night hours on Fridays and Saturdays, isolating a weekend nightlife demographic.</li>
-                <div class="placeholder-box">
-                    <img src="casual_heatmap.png" alt="Casual heatmap" style="width: 100%; border-radius: 8px;">
-                </div>
-
-            <li><strong>Duration Metrics:</strong> Despite lower ride counts, casual riders maintain a substantially higher average time spent per trip compared to annual members.</li>
-            <div class="placeholder-box">
-                <img src="totalRides_line.png" alt="Line chart showing differences" style="width: 100%; border-radius: 8px;">        
-                <img src="avgMinutes_line.png" alt="Line chart showing differences" style="width: 100%; border-radius: 8px;">        
-            </div>
-            <li><strong>The Summer Seasonality Spike (Casuals):</strong> While annual members maintain consistent usage patterns year-round, casual rider duration surges dramatically with the onset of the summer season. Time-series analysis shows a massive spike triggered by warmer weather and high-density Chicago public events—such as major music festivals (e.g., Lollapalooza), waterfront activities, and community running races. During this peak window, casual riders completely dominate engagement metrics, shifting from standard A-to-B transit to extensive, leisure-oriented exploration.</li>
-            <div class="placeholder-box">
-                
-                <img src="ridedHours_line.png" alt="Line chart showing differences" style="width: 100%; border-radius: 8px;">        
-            </div>
+            <li><strong>Duration Metrics:</strong> Despite lower overall ride counts, casual riders maintain a substantially higher average time spent per trip compared to annual members, especially along the waterfront and around famous landmarks.</li>
+            <li><strong>Geographical Usage Patterns:</strong> A distinct spatial separation exists between the two user groups. Casual rider activity is heavily concentrated along the waterfront and coastal areas, indicating leisure and tourism use. Conversely, annual member usage is centered within the downtown business district (the Loop), reinforcing the utility-driven commuter profile.</li>
         </ul>
 
-        
+        <div class='tableauPlaceholder' id='viz1782066189121' style='position: relative;text-align: center;'>
+            <noscript>
+                <a href='#'>
+                    <img alt='User type comperation ' 
+                    src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ZF&#47;ZFQPKSN2D&#47;1_rss.png' 
+                    style='border: none' />
+                </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='path' value='shared&#47;ZFQPKSN2D' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ZF&#47;ZFQPKSN2D&#47;1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='en-US' />
+                <param name='filter' value='publish=yes' />
+            </object>
+        </div>
+
+        <script type='text/javascript'>                    
+            var divElement = document.getElementById('viz1782066189121');                    
+            var vizElement = divElement.getElementsByTagName('object')[0];                    
+            
+            // A szélesség marad 100%, hogy ne lógjon ki jobbra
+            vizElement.style.width = '100%';
+            
+            // A magasságot FIX PIXELBEN adjuk meg, hogy ne csukoljon össze
+            vizElement.style.height = '850px'; 
+            
+            var scriptElement = document.createElement('script');                    
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+        </script>
         <h2>Strategic Recommendations</h2>
-        <p>Based on the insight gaps identified in the data, I propose the following 3 strategic recommendations for Cyclistic's management:</p>
+        <p>Based on the insight gaps identified in the data, I propose the following these strategic recommendations for Cyclistic's management:</p>
 
-        <div class="recommendation">
-            <h4>1. Proactive Campaign Timing</h4>
-            <p>Data shows that casual rides surge in May and peak until September. Launch the marketing campaign in mid-April to convert users into annual members right before the high season starts.</p>
+        <div class="recommendation-card">
+            <h4>"Smart Pause" Feature for Casual Riders</h4>
+            <p><strong>The Action:</strong> A free 10–15 minute in-app parking lock (once per trip) so no one else can take the bike during sightseeing stops.</p>
+</strong>
         </div>
 
-        <div class="recommendation">
+        <div class="recommendation-card">
             <h4>2. Targeted Lifestyle Marketing</h4>
-            <p>Emphasize freedom, speed, and weekend fun in marketing collateral. The campaign must highlight that for regular weekend riding, an annual membership is the most seamless and cost-effective option available.</p>
+            <p><strong>The Action:</strong> Partner with 1–2 major attractions (e.g., Navy Pier) to give an instant 15% discount code upon upgrading to an Annual Membership.</p>
+            <p><strong>The Value:</strong> High-impact Conversion Rate Optimization (CRO) that captures active Casual riders at their peak location and converts them into high-Lifetime Value (LTV) subscribers.</p>
         </div>
 
-        <div class="recommendation">
-            <h4>3. The 15-Minute E-Bike "Hook" Strategy</h4>
-            <p>The average trip duration for casual riders is 21 minutes, making pay-per-minute fees a significant pain point. Introduce 1 daily 15-minute free e-mobility session exclusive to annual members. Because this is lower than their 21-minute average, riders will naturally spill over the limit and pay regular minute rates, driving high annual conversions while generating extra revenue.</p>
-        </div>
+       
     </div>
 
 </body>

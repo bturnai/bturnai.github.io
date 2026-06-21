@@ -5,7 +5,7 @@
 
 /* A teljes oldal háttere és alap betűstílusa */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     line-height: 1.7;
     color: #cbd5e0; /* Kellemes, lágy szürkésfehér szövegszín */
     background-color: #0f172a; /* Mély sötétkék (slate) háttér */
@@ -13,11 +13,11 @@ body {
     padding: 40px 20px;
 }
 
-/* A központi tartalom kártyája - ez különül el gyönyörűen a háttértől */
+/* A központi tartalom kártyája */
 .container {
-    max-width: 900px;
+    max-width: 1124px;
     margin: 0 auto;
-    background: #1e293b; /* Kicsit világosabb, elegáns kékesszürke kártya háttér */
+    background: #1e293b; /* Elegáns kékesszürke kártya háttér */
     padding: 50px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -39,27 +39,18 @@ h1 {
     font-weight: 700;
 }
 
-.subtitle {
-    font-size: 18pt;
-    color: #94a3b8; /* Halványabb alcím */
-    font-weight: 400;
-    display: block;
-    margin-bottom: 20px;
-}
-
 /* A Horog (The Hook) kiemelt, modern doboza */
 .hook-box {
     font-size: 11.5pt;
-    font-style: italic;
     color: #e2e8f0;
-    background-color: rgba(56, 189, 248, 0.1); /* Nagyon finom, áttetsző világoskék fény */
+    background-color: rgba(56, 189, 248, 0.1); /* Finom, áttetsző világoskék fény */
     border-left: 4px solid #38bdf8; /* Markáns neonkék bal oldali csík */
     padding: 20px;
     margin-top: 25px;
     border-radius: 0 8px 8px 0;
 }
 
-/* Fő fejezetcímek (Ask, Process, Insights...) */
+/* Fő fejezetcímek */
 h2 {
     font-size: 15pt;
     color: #38bdf8; /* Világító kék kód-esztétika */
@@ -88,7 +79,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* LISTÁK JAVÍTÁSA: Nem lógnak ki balra, tökéletesen igazodnak a címekhez */
+/* Listák igazítása */
 ul {
     padding-left: 25px;
     margin-top: 10px;
@@ -97,33 +88,33 @@ ul {
 
 li {
     margin-bottom: 14px;
-    list-style-position: outside; /* Biztosítja, hogy a szöveg ne csússzon a pötty alá */
+    list-style-position: outside;
 }
 
 li strong {
-    color: #ffffff; /* A listákon belüli kulcsszavak tiszta fehérek a maximális szkennelhetőségért */
+    color: #ffffff;
 }
 
-/* Tableau / Kép helyőrző doboz */
+/* Kép helyőrző/tartó doboz finomítása (nem dashed, ha kép van benne) */
 .placeholder-box {
     background-color: #0f172a;
-    border: 2px dashed #475569;
+    border: 1px solid #334155;
     border-radius: 8px;
-    padding: 45px;
+    padding: 20px;
     text-align: center;
-    color: #94a3b8;
-    font-style: italic;
-    margin: 40px 0;
+    margin: 30px 0;
 }
 
 /* Stratégiai javaslatok kártyái */
 .recommendation-card {
-    background: #1e293b;
-    border-left: 4px solid #0ea5e9;
+    background: #0f172a;
+    border-left: 4px solid #38bdf8;
     padding: 22px;
     margin-bottom: 20px;
     border-radius: 0 8px 8px 0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+    border-top: 1px solid #334155;
+    border-right: 1px solid #334155;
+    border-bottom: 1px solid #334155;
 }
 
 .recommendation-card h4 {
@@ -133,7 +124,7 @@ li strong {
     font-size: 13pt;
 }
 
-/* Kis technológiai címkék stílusa (Python, Tableau...) */
+/* Kis technológiai címkék stílusa */
 .tech-badge {
     background-color: #334155;
     color: #f8fafc;
@@ -146,4 +137,40 @@ li strong {
 p {
     margin-bottom: 22px;
     color: #cbd5e0;
+}
+
+/* ÚJ ELEM: Letöltési gomb stílusa */
+.btn-download {
+    display: inline-block;
+    background-color: #38bdf8;
+    color: #0f172a;
+    padding: 0.8rem 2rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #38bdf8;
+}
+
+.btn-download:hover {
+    background-color: transparent;
+    color: #38bdf8;
+}
+.tableau-embed-container {
+    width: 100%;
+    height: 850px; /* Ezt hagyd azon az értéken, amire korábban beállítottad! */
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 0;
+    margin: 30px 0;
+    margin-left: 90px;
+    margin-right: auto;
+    overflow-x: auto; 
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    
+    /* --- EZZEL A KÉT ÚJ SORRAL KÉNYSZERÍTJÜK KÖZÉPRE --- */
+    display: flex;
+    justify-content: center;
 }
