@@ -174,3 +174,91 @@ p {
     display: flex;
     justify-content: center;
 }
+/* --- HERO SZEKCIÓ ÉS HÁTTÉRKÉP --- */
+.hero-section {
+    /* Ide tedd a saját háttérképed elérési útját! */
+    /* Példa sötét, adatos háttérképre (kicserélheted a sajátodra) */
+    background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Teljes képernyős magasság vagy fix, ahogy tetszik */
+    min-height: 80vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    margin-top: 0; 
+}
+
+.hero-container {
+    display: flex;
+    justify-content: center; /* Középre húzza a kártyát */
+    width: 100%;
+}
+
+/* --- ÜVEGHATÁSÚ PROFILKÁRTYA --- */
+.profile-card {
+    background: rgba(30, 41, 59, 0.6); /* Félig átlátszó sötétkék */
+    backdrop-filter: blur(12px); /* Ez adja az "üveg" elhomályosítást */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Vékony, elegáns keret */
+    border-radius: 16px;
+    padding: 50px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px); /* Finom lebegés, ha ráviszik az egeret */
+}
+
+/* --- PROFILKÉP BEÁLLÍTÁSA --- */
+.profile-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover; /* Biztosítja, hogy ne torzuljon a kép */
+    border-radius: 50%; /* Tökéletes kör */
+    border: 3px solid #38bdf8; /* Neon-kék keret, ami passzol a tech dizájnhoz */
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* --- KÁRTYA SZÖVEGEI --- */
+.profile-text h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.profile-text .subtitle {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Mobilos reszponzivitás a kártyához */
+@media (max-width: 576px) {
+    .profile-card {
+        padding: 30px 20px;
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+    }
+    .profile-text h1 {
+        font-size: 2rem;
+    }
+}

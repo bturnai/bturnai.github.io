@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study - Gym Exercise Recognition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Gym Exercise Recognition:<br><span style="color: #94a3b8; font-size: 18pt; font-weight: normal;">Classifying Exercises from Kinect Video Using Classical ML and Deep Learning</span></h1>
+
+            <div class="hook-box">
+                <strong>The goal:</strong> Automatically identify gym exercises from video captured by a Kinect sensor. I built and compared four classifiers — SVM, Random Forest, 2D CNN, and LSTM — discovering that the key to high accuracy was not the sensor itself, but extracting <em>temporal sequences</em> of joint coordinates using OpenPose. The LSTM achieved <strong>92.5% accuracy</strong> on the test set, confirming that motion is better understood over time than in a single frame.
+            </div>
+        </header>
+
+        <h2>Problem & Motivation</h2>
+        <p>Automated exercise recognition has real-world applications in personal training, rehabilitation, and sports analytics — anywhere that accurate, real-time feedback on movement quality matters. The challenge is that many exercises look superficially similar at a single moment in time: a squat and a lunge share similar joint angles at their lowest point. What separates them is the <em>trajectory</em> of movement across frames.</p>
+        <p>This project set out to answer a practical question: which classification approach — classical machine learning or deep learning — best captures the structure of human exercise motion?</p>
+
+        <h2>Data Pipeline: From Kinect to Joint Coordinates</h2>
+
+        <p>The raw input was RGB video from a Kinect sensor. My first instinct was to use the Kinect's built-in skeleton tracking, but after evaluating the output quality I made a deliberate decision to route the video through <strong>OpenPose</strong> instead. OpenPose produced significantly more precise joint coordinate estimates, particularly for overlapping limbs and non-frontal poses — a critical improvement given that exercise videos involve extreme body positions.</p>
+
+        <p><strong>Key pipeline steps:</strong></p>
+        <ul>
+            <li><strong>Frame extraction:</strong> Each video was split into individual frames and passed through OpenPose to extract 25 body keypoints (x, y coordinates) per frame.</li>
+            <li><strong>Temporal structuring:</strong> Rather than treating each frame in isolation, I grouped consecutive frames into fixed-length windows. This was the pivotal insight of the project: <em>a single frame carries almost no exercise-identifying information — the sequence does.</em></li>
+            <li><strong>Feature engineering for classical models:</strong> For SVM and Random Forest, the temporal windows were flattened into feature vectors, enabling these non-sequential models to still capture some motion context.</li>
+            <li><strong>Sequence formatting for deep learning:</strong> For LSTM and 2D CNN, the windowed data was structured as proper time-series tensors, allowing the models to learn temporal dependencies directly.</li>
+        </ul>
+
+        <h2>The Key Insight: Why Frames Alone Are Not Enough</h2>
+
+        <p>Early experiments treating each frame as an independent sample produced poor results across all models. The turning point came when I restructured the data into overlapping temporal windows — sequences of consecutive frames rather than individual snapshots.</p>
+
+        <p>This change reflects something true about exercise: no single posture uniquely identifies a movement. A bent knee is shared by squats, lunges, and deadlifts. What distinguishes them is the <em>pattern of change</em> over time — the trajectory of joints as the body moves through the full range of motion. Encoding time explicitly into the input gave every model a meaningful signal to learn from.</p>
+
+        <h2>Models & Results</h2>
+
+        <p>I trained and evaluated four classifiers on the same temporally-structured dataset. Results are reported on a held-out test set.</p>
+
+        <div class="recommendation-card">
+            <h4>LSTM — 92.5% Accuracy &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Best Overall</span></h4>
+            <p><strong>Architecture:</strong> Two stacked LSTM layers with Dropout regularization, trained for 20 epochs on sequential joint-coordinate windows.</p>
+            <p><strong>Why it won:</strong> LSTM is architecturally designed for sequential data — it maintains a hidden state across time steps, letting it model how joints move across the full exercise. This matched the structure of the problem exactly, and the accuracy reflects it.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>SVM — 96% Test Accuracy &nbsp;<span style="background:#3b82f622; color:#1d4ed8; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Highest Raw Score</span></h4>
+            <p><strong>Setup:</strong> Grid-searched over kernel type, C, and gamma via 5-fold cross-validation. Best configuration: linear kernel, C=0.001. Cross-validation accuracy: 94.6%.</p>
+            <p><strong>Caveat:</strong> The 96% test accuracy is measured on a small held-out set (67 samples), which makes it more sensitive to sampling variation than the cross-validated score. The CV accuracy of 94.6% is a more reliable estimate of generalization. Still, SVM performed strongly — a reminder that well-tuned classical models remain competitive on structured, lower-dimensional data.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>Random Forest — 88.1% Accuracy</h4>
+            <p><strong>Setup:</strong> Ensemble of decision trees trained on flattened temporal feature vectors.</p>
+            <p><strong>Observation:</strong> Solid performance without any hyperparameter tuning. Random Forest handled the flattened sequential features well and served as a strong baseline, though it cannot model temporal order as explicitly as LSTM.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>2D CNN — 68.7% Accuracy</h4>
+            <p><strong>Architecture:</strong> Convolutional layers applied to 2D representations of the joint-coordinate sequences, trained for 50 epochs.</p>
+            <p><strong>Observation:</strong> The lowest-performing model. While CNNs excel at spatial pattern recognition in images, the exercise data did not naturally form the kind of spatial structure that convolutions exploit. The temporal dynamics were harder to capture through a 2D spatial lens compared to LSTM's explicit recurrence.</p>
+        </div>
+
+        <h2>Results Summary</h2>
+
+        <table style="width:100%; border-collapse:collapse; margin-top: 12px; font-size: 10.5pt;">
+            <thead>
+                <tr style="border-bottom: 2px solid #334155;">
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Model</th>
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Type</th>
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Test Accuracy</th>
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">LSTM</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Deep Learning</td>
+                    <td style="padding: 10px 8px; color:#22c55e; font-weight:700;">92.5%</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Best generalizer; architecturally matched to sequential motion data</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">SVM</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Classical ML</td>
+                    <td style="padding: 10px 8px; color:#60a5fa; font-weight:700;">96% <span style="font-size:9pt; color:#64748b;">(CV: 94.6%)</span></td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Strong with small dataset; CV score is more reliable estimate</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">Random Forest</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Classical ML</td>
+                    <td style="padding: 10px 8px; font-weight:700;">88.1%</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Solid baseline; no explicit temporal ordering</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 8px; font-weight:600;">2D CNN</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Deep Learning</td>
+                    <td style="padding: 10px 8px; color:#f87171; font-weight:700;">68.7%</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Spatial convolutions less suited to this temporal structure</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top:8px;">
+            <!-- Ide kerülhet a confusion matrix kép, ha van -->
+            <!-- <img src="pictures/confusion_matrix.png" alt="Confusion Matrix" style="width: 75%; border-radius: 8px; display: block; margin-top: 20px;"> -->
+        </p>
+
+        <h2>Reflections & What I Would Do Differently</h2>
+
+        <p>The biggest lesson was methodological: the choice of <em>how to represent the data</em> mattered more than the choice of model. Switching from frame-level to sequence-level input lifted performance across all four classifiers. No amount of model tuning would have recovered the signal that was lost by ignoring time.</p>
+
+        <p>With more time and data, I would explore three directions. First, a larger and more balanced dataset — the test set of 67 samples is small enough that single-digit accuracy differences may not be statistically meaningful. Second, data augmentation through temporal jittering and mirroring of joint sequences to improve robustness to speed and orientation variation. Third, a Transformer-based sequence model (such as a temporal self-attention architecture), which has shown strong results in skeleton-based action recognition and would be a natural next step beyond LSTM.</p>
+
+        <h2>Stack & Repository</h2>
+        <ul>
+            <li><strong>Languages & Libraries:</strong> Python · NumPy · Pandas · Scikit-learn · TensorFlow / Keras</li>
+            <li><strong>Pose Estimation:</strong> OpenPose</li>
+            <li><strong>Sensor:</strong> Microsoft Kinect (RGB stream)</li>
+            <li><strong>Code:</strong> Available on request — <a href="https://github.com" style="color:#60a5fa;">GitHub (private repo)</a></li>
+        </ul>
+
+    </div>
+
+</body>
+</html>
