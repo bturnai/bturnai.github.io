@@ -16,7 +16,7 @@
             <h1>Gym Exercise Recognition:<br><span style="color: #94a3b8; font-size: 18pt; font-weight: normal;">Classifying Exercises from Kinect Video Using Classical ML and Deep Learning</span></h1>
 
             <div class="hook-box">
-                <strong>The goal:</strong> Automatically identify gym exercises from video captured by a Kinect sensor. I built and compared four classifiers — SVM, Random Forest, 2D CNN, and LSTM — discovering that the key to high accuracy was not the sensor itself, but extracting <em>temporal sequences</em> of joint coordinates using OpenPose. The LSTM achieved <strong>92.5% accuracy</strong> on the test set, confirming that motion is better understood over time than in a single frame.
+                <strong>The goal:</strong> Automatically identify gym exercises from video captured by a Kinect sensor. I built and compared four classifiers — SVM, Random Forest, 2D CNN, and LSTM — discovering that the key to high accuracy was not the sensor itself, but extracting <em>temporal sequences</em> of joint coordinates using OpenPose. The final model was <strong>SVM, achieving 96% test accuracy</strong> (94.6% cross-validated), demonstrating that a well-tuned classical model can outperform deep learning when the dataset is structured and the features are well-engineered.
             </div>
         </header>
 
@@ -24,9 +24,15 @@
         <p>Automated exercise recognition has real-world applications in personal training, rehabilitation, and sports analytics — anywhere that accurate, real-time feedback on movement quality matters. The challenge is that many exercises look superficially similar at a single moment in time: a squat and a lunge share similar joint angles at their lowest point. What separates them is the <em>trajectory</em> of movement across frames.</p>
         <p>This project set out to answer a practical question: which classification approach — classical machine learning or deep learning — best captures the structure of human exercise motion?</p>
 
+        <p>The system was trained to classify <strong>7 exercises:</strong> bent-over row, bicep curl, squat (front view), squat (side view), Romanian deadlift (RDL), overhead press, and lateral raise.</p>
+
         <h2>Data Pipeline: From Kinect to Joint Coordinates</h2>
 
+        <img src="pictures/gym_dataCollection.png" alt="Gym Data Collection Pipeline" style="width:65%; border-radius:8px; margin: 1.5rem 0;">
+
         <p>The raw input was RGB video from a Kinect sensor. My first instinct was to use the Kinect's built-in skeleton tracking, but after evaluating the output quality I made a deliberate decision to route the video through <strong>OpenPose</strong> instead. OpenPose produced significantly more precise joint coordinate estimates, particularly for overlapping limbs and non-frontal poses — a critical improvement given that exercise videos involve extreme body positions.</p>
+
+        <p>To supplement the self-collected Kinect footage, I extended the dataset with exercise videos from the <a href="https://www.kaggle.com/datasets/hasyimabdillah/workoutfitness-video/data" target="_blank" style="color:#60a5fa;">Workout/Fitness Video dataset on Kaggle</a>. The Kaggle data was not used wholesale — I manually reviewed and selected the videos, discarding samples with poor visibility, inconsistent camera angles, or ambiguous form. This curation step was essential to maintaining label quality across both data sources.</p>
 
         <p><strong>Key pipeline steps:</strong></p>
         <ul>
@@ -35,6 +41,7 @@
             <li><strong>Feature engineering for classical models:</strong> For SVM and Random Forest, the temporal windows were flattened into feature vectors, enabling these non-sequential models to still capture some motion context.</li>
             <li><strong>Sequence formatting for deep learning:</strong> For LSTM and 2D CNN, the windowed data was structured as proper time-series tensors, allowing the models to learn temporal dependencies directly.</li>
         </ul>
+        <img src="pictures/gym_exerciseRecognition.png" alt="Gym Data Collection Pipeline" style="width:65%; border-radius:8px; margin: 1.5rem 0;">
 
         <h2>The Key Insight: Why Frames Alone Are Not Enough</h2>
 
@@ -47,31 +54,36 @@
         <p>I trained and evaluated four classifiers on the same temporally-structured dataset. Results are reported on a held-out test set.</p>
 
         <div class="recommendation-card">
-            <h4>LSTM — 92.5% Accuracy &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Best Overall</span></h4>
-            <p><strong>Architecture:</strong> Two stacked LSTM layers with Dropout regularization, trained for 20 epochs on sequential joint-coordinate windows.</p>
-            <p><strong>Why it won:</strong> LSTM is architecturally designed for sequential data — it maintains a hidden state across time steps, letting it model how joints move across the full exercise. This matched the structure of the problem exactly, and the accuracy reflects it.</p>
+            <h4>SVM — 96% Test Accuracy &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Final Model</span></h4>
+            <p><strong>Setup:</strong> Grid-searched over kernel type, C, and gamma via 5-fold cross-validation. Best configuration: linear kernel, C=0.001. Cross-validation accuracy: 94.6%.</p>
+            <p><strong>Why it was chosen:</strong> SVM delivered the highest test accuracy (96%) and a strong cross-validated score (94.6%), outperforming all other models including deep learning approaches. On well-engineered, structured feature vectors, a rigorously tuned SVM proved more effective than architecturally more complex alternatives.</p>
+            <img src="pictures/SVM_confusionMatrix.png" alt=" SVM Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
         </div>
 
         <div class="recommendation-card">
-            <h4>SVM — 96% Test Accuracy &nbsp;<span style="background:#3b82f622; color:#1d4ed8; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Highest Raw Score</span></h4>
-            <p><strong>Setup:</strong> Grid-searched over kernel type, C, and gamma via 5-fold cross-validation. Best configuration: linear kernel, C=0.001. Cross-validation accuracy: 94.6%.</p>
-            <p><strong>Caveat:</strong> The 96% test accuracy is measured on a small held-out set (67 samples), which makes it more sensitive to sampling variation than the cross-validated score. The CV accuracy of 94.6% is a more reliable estimate of generalization. Still, SVM performed strongly — a reminder that well-tuned classical models remain competitive on structured, lower-dimensional data.</p>
+            <h4>LSTM — 92.5% Accuracy</h4>
+            <p><strong>Architecture:</strong> Two stacked LSTM layers with Dropout regularization, trained for 20 epochs on sequential joint-coordinate windows.</p>
+            <p><strong>Observation:</strong> Strong performance and architecturally well-suited to sequential data — LSTM maintains a hidden state across time steps, directly modeling joint trajectories. However, it did not surpass the SVM on this dataset, likely due to the relatively small training size limiting the benefit of learned recurrent representations.</p>
+            <img src="pictures/LSTM_confusionMatrix.png" alt="LSTM Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
         </div>
 
         <div class="recommendation-card">
             <h4>Random Forest — 88.1% Accuracy</h4>
             <p><strong>Setup:</strong> Ensemble of decision trees trained on flattened temporal feature vectors.</p>
             <p><strong>Observation:</strong> Solid performance without any hyperparameter tuning. Random Forest handled the flattened sequential features well and served as a strong baseline, though it cannot model temporal order as explicitly as LSTM.</p>
+            <img src="pictures/randomForest_confusionMatrix.png" alt="Random Forest Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
         </div>
 
         <div class="recommendation-card">
             <h4>2D CNN — 68.7% Accuracy</h4>
             <p><strong>Architecture:</strong> Convolutional layers applied to 2D representations of the joint-coordinate sequences, trained for 50 epochs.</p>
-            <p><strong>Observation:</strong> The lowest-performing model. While CNNs excel at spatial pattern recognition in images, the exercise data did not naturally form the kind of spatial structure that convolutions exploit. The temporal dynamics were harder to capture through a 2D spatial lens compared to LSTM's explicit recurrence.</p>
+            <p><strong>Observation:</strong> The lowest-performing model. While CNNs excel at spatial pattern recognition in images, the exercise data did not naturally form the kind of spatial structure that convolutions exploit. The temporal dynamics were harder to capture through a 2D spatial lens compared to LSTM's explicit recurrence. Furthermore, CNN architectures are inherently data-hungry and designed to extract features from massive datasets. When applied to a relatively small dataset like this one, the model was highly prone to overfitting—memorizing the limited training samples rather than learning generalizable patterns.</p>
+            <img src="pictures/2DCNN_confusionMatrix.png" alt="2D CNN Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
+
         </div>
-
+        
         <h2>Results Summary</h2>
-
+        
         <table style="width:100%; border-collapse:collapse; margin-top: 12px; font-size: 10.5pt;">
             <thead>
                 <tr style="border-bottom: 2px solid #334155;">
@@ -83,16 +95,16 @@
             </thead>
             <tbody>
                 <tr style="border-bottom: 1px solid #1e293b;">
-                    <td style="padding: 10px 8px; font-weight:600;">LSTM</td>
-                    <td style="padding: 10px 8px; color:#94a3b8;">Deep Learning</td>
-                    <td style="padding: 10px 8px; color:#22c55e; font-weight:700;">92.5%</td>
-                    <td style="padding: 10px 8px; color:#94a3b8;">Best generalizer; architecturally matched to sequential motion data</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #1e293b;">
                     <td style="padding: 10px 8px; font-weight:600;">SVM</td>
                     <td style="padding: 10px 8px; color:#94a3b8;">Classical ML</td>
-                    <td style="padding: 10px 8px; color:#60a5fa; font-weight:700;">96% <span style="font-size:9pt; color:#64748b;">(CV: 94.6%)</span></td>
-                    <td style="padding: 10px 8px; color:#94a3b8;">Strong with small dataset; CV score is more reliable estimate</td>
+                    <td style="padding: 10px 8px; color:#22c55e; font-weight:700;">96% <span style="font-size:9pt; color:#64748b;">(CV: 94.6%)</span></td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Final model; highest accuracy across all classifiers</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">LSTM</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Deep Learning</td>
+                    <td style="padding: 10px 8px; color:#60a5fa; font-weight:700;">92.5%</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Architecturally suited to sequential data; limited by dataset size</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #1e293b;">
                     <td style="padding: 10px 8px; font-weight:600;">Random Forest</td>
@@ -101,6 +113,7 @@
                     <td style="padding: 10px 8px; color:#94a3b8;">Solid baseline; no explicit temporal ordering</td>
                 </tr>
                 <tr>
+                    
                     <td style="padding: 10px 8px; font-weight:600;">2D CNN</td>
                     <td style="padding: 10px 8px; color:#94a3b8;">Deep Learning</td>
                     <td style="padding: 10px 8px; color:#f87171; font-weight:700;">68.7%</td>
@@ -108,25 +121,46 @@
                 </tr>
             </tbody>
         </table>
+        
 
-        <p style="margin-top:8px;">
-            <!-- Ide kerülhet a confusion matrix kép, ha van -->
-            <!-- <img src="pictures/confusion_matrix.png" alt="Confusion Matrix" style="width: 75%; border-radius: 8px; display: block; margin-top: 20px;"> -->
-        </p>
-
+        
         <h2>Reflections & What I Would Do Differently</h2>
 
         <p>The biggest lesson was methodological: the choice of <em>how to represent the data</em> mattered more than the choice of model. Switching from frame-level to sequence-level input lifted performance across all four classifiers. No amount of model tuning would have recovered the signal that was lost by ignoring time.</p>
 
-        <p>With more time and data, I would explore three directions. First, a larger and more balanced dataset — the test set of 67 samples is small enough that single-digit accuracy differences may not be statistically meaningful. Second, data augmentation through temporal jittering and mirroring of joint sequences to improve robustness to speed and orientation variation. Third, a Transformer-based sequence model (such as a temporal self-attention architecture), which has shown strong results in skeleton-based action recognition and would be a natural next step beyond LSTM.</p>
+        <p>The SVM result also reinforced a useful principle: deep learning is not automatically the right tool. With a relatively small, well-structured dataset and carefully engineered temporal features, a rigorously tuned SVM outperformed both LSTM and 2D CNN. The lesson is to let the data characteristics — not the prestige of the architecture — drive model selection.</p>
 
-        <h2>Stack & Repository</h2>
+        <p>With more time and data, I would explore three directions. First, a larger and more balanced dataset — the current test set is small enough that single-digit accuracy differences may not be statistically meaningful. Second, data augmentation through temporal jittering and mirroring of joint sequences to improve robustness to speed and orientation variation. Third, with substantially more training data, revisiting a Transformer-based sequence model (temporal self-attention) would be the natural next step — the architecture is promising but requires data volume that wasn't available here.</p>
+
+        <h2>Real-Time Inference Pipeline</h2>
+
+        <p>Beyond training and evaluation, the system was integrated into a live inference pipeline running at prediction time. The architecture spans two languages and communicates over TCP sockets:</p>
+
         <ul>
-            <li><strong>Languages & Libraries:</strong> Python · NumPy · Pandas · Scikit-learn · TensorFlow / Keras</li>
+            <li><strong>C# (Kinect app):</strong> Captures RGB frames from the Kinect sensor and streams raw image data to a local TCP socket.</li>
+            <li><strong>Python.py — OpenPose server:</strong> Receives image frames, runs OpenPose to extract joint keypoints, and returns coordinate data to the classifier.</li>
+            <li><strong>ClassifierModell.py — Inference server:</strong> Receives keypoint sequences, feeds them through the trained model, and returns the predicted exercise class in real time using majority voting across a window of predictions.</li>
+        </ul>
+
+        <p>Both Python servers run as separate threads launched from a single entry point, handling concurrent connections. The result is a system where the Kinect feed flows through OpenPose and into the classifier with no manual intervention.</p>
+
+        <h2>Stack & Code</h2>
+        <ul>
+            <li><strong>Languages & Libraries:</strong> Python · NumPy · Pandas · Scikit-learn · TensorFlow / Keras · C#</li>
             <li><strong>Pose Estimation:</strong> OpenPose</li>
             <li><strong>Sensor:</strong> Microsoft Kinect (RGB stream)</li>
-            <li><strong>Code:</strong> Available on request — <a href="https://github.com" style="color:#60a5fa;">GitHub (private repo)</a></li>
+            <li><strong>Communication:</strong> TCP sockets (C# ↔ Python interop)</li>
         </ul>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-main, #f8fafc);">Source Code</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <a href="code/SVM.ipynb" target="_blank" class="btn-download">SVM.ipynb</a>
+            <a href="code/LSTM.ipynb" target="_blank" class="btn-download">LSTM.ipynb</a>
+            <a href="code/RandomForest.ipynb" target="_blank" class="btn-download">RandomForest.ipynb</a>
+            <a href="code/2D_Conv.ipynb" target="_blank" class="btn-download">2D_Conv.ipynb</a>
+            <a href="code/Python.py" target="_blank" class="btn-download">Python.py</a>
+            <a href="code/ClassifierModell.py" target="_blank" class="btn-download">ClassifierModell.py</a>
+        </div>
 
     </div>
 
