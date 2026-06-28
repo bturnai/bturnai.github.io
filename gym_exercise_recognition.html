@@ -54,32 +54,47 @@
         <p>I trained and evaluated four classifiers on the same temporally-structured dataset. Results are reported on a held-out test set.</p>
 
         <div class="recommendation-card">
-            <h4>SVM — 96% Test Accuracy &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Final Model</span></h4>
-            <p><strong>Setup:</strong> Grid-searched over kernel type, C, and gamma via 5-fold cross-validation. Best configuration: linear kernel, C=0.001. Cross-validation accuracy: 94.6%.</p>
-            <p><strong>Why it was chosen:</strong> SVM delivered the highest test accuracy (96%) and a strong cross-validated score (94.6%), outperforming all other models including deep learning approaches. On well-engineered, structured feature vectors, a rigorously tuned SVM proved more effective than architecturally more complex alternatives.</p>
-            <img src="pictures/SVM_confusionMatrix.png" alt=" SVM Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
+            <div class="card-inner">
+                <div class="card-text">
+                    <h4>SVM — 96% Test Accuracy &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Final Model</span></h4>
+                    <p><strong>Setup:</strong> Grid-searched over kernel type, C, and gamma via 5-fold cross-validation. Best configuration: linear kernel, C=0.001. Cross-validation accuracy: 94.6%.</p>
+                    <p><strong>Why it was chosen:</strong> SVM delivered the highest test accuracy (96%) and a strong cross-validated score (94.6%), outperforming all other models including deep learning approaches. On well-engineered, structured feature vectors, a rigorously tuned SVM proved more effective than architecturally more complex alternatives.</p>
+                </div>
+                <img src="pictures/SVM_confusionMatrix.png" alt="SVM Confusion Matrix">
+            </div>
         </div>
 
         <div class="recommendation-card">
-            <h4>LSTM — 92.5% Accuracy</h4>
-            <p><strong>Architecture:</strong> Two stacked LSTM layers with Dropout regularization, trained for 20 epochs on sequential joint-coordinate windows.</p>
-            <p><strong>Observation:</strong> Strong performance and architecturally well-suited to sequential data — LSTM maintains a hidden state across time steps, directly modeling joint trajectories. However, it did not surpass the SVM on this dataset, likely due to the relatively small training size limiting the benefit of learned recurrent representations.</p>
-            <img src="pictures/LSTM_confusionMatrix.png" alt="LSTM Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
+            <div class="card-inner">
+                <div class="card-text">
+                    <h4>LSTM — 92.5% Accuracy</h4>
+                    <p><strong>Architecture:</strong> Two stacked LSTM layers with Dropout regularization, trained for 20 epochs on sequential joint-coordinate windows.</p>
+                    <p><strong>Observation:</strong> Strong performance and architecturally well-suited to sequential data — LSTM maintains a hidden state across time steps, directly modeling joint trajectories. However, it did not surpass the SVM on this dataset, likely due to the relatively small training size limiting the benefit of learned recurrent representations.</p>
+                </div>
+                <img src="pictures/LSTM_confusionMatrix.png" alt="LSTM Confusion Matrix">
+            </div>
         </div>
 
         <div class="recommendation-card">
-            <h4>Random Forest — 88.1% Accuracy</h4>
-            <p><strong>Setup:</strong> Ensemble of decision trees trained on flattened temporal feature vectors.</p>
-            <p><strong>Observation:</strong> Solid performance without any hyperparameter tuning. Random Forest handled the flattened sequential features well and served as a strong baseline, though it cannot model temporal order as explicitly as LSTM.</p>
-            <img src="pictures/randomForest_confusionMatrix.png" alt="Random Forest Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
+            <div class="card-inner">
+                <div class="card-text">
+                    <h4>Random Forest — 88.1% Accuracy</h4>
+                    <p><strong>Setup:</strong> Ensemble of decision trees trained on flattened temporal feature vectors.</p>
+                    <p><strong>Observation:</strong> Solid performance without any hyperparameter tuning. Random Forest handled the flattened sequential features well and served as a strong baseline, though it cannot model temporal order as explicitly as LSTM.</p>
+                </div>
+                <img src="pictures/randomForest_confusionMatrix.png" alt="Random Forest Confusion Matrix">
+            </div>
         </div>
 
         <div class="recommendation-card">
-            <h4>2D CNN — 68.7% Accuracy</h4>
-            <p><strong>Architecture:</strong> Convolutional layers applied to 2D representations of the joint-coordinate sequences, trained for 50 epochs.</p>
-            <p><strong>Observation:</strong> The lowest-performing model. While CNNs excel at spatial pattern recognition in images, the exercise data did not naturally form the kind of spatial structure that convolutions exploit. The temporal dynamics were harder to capture through a 2D spatial lens compared to LSTM's explicit recurrence. Furthermore, CNN architectures are inherently data-hungry and designed to extract features from massive datasets. When applied to a relatively small dataset like this one, the model was highly prone to overfitting—memorizing the limited training samples rather than learning generalizable patterns.</p>
-            <img src="pictures/2DCNN_confusionMatrix.png" alt="2D CNN Confusion Matrix" style="width: 50%; border-radius: 8px; display: block; margin-top: 20px;">
-
+            <div class="card-inner">
+                <div class="card-text">
+                    <h4>2D CNN — 68.7% Accuracy</h4>
+                    <p><strong>Architecture:</strong> Convolutional layers applied to 2D representations of the joint-coordinate sequences, trained for 50 epochs.</p>
+                    <p><strong>Observation:</strong> The lowest-performing model. While CNNs excel at spatial pattern recognition in images, the exercise data did not naturally form the kind of spatial structure that convolutions exploit. The temporal dynamics were harder to capture through a 2D spatial lens compared to LSTM's explicit recurrence. Furthermore, CNN architectures are inherently data-hungry and designed to extract features from massive datasets. When applied to a relatively small dataset like this one, the model was highly prone to overfitting—memorizing the limited training samples rather than learning generalizable patterns.</p>
+                </div>
+                <img src="pictures/2DCNN_confusionMatrix.png" alt="2D CNN Confusion Matrix">
+            </div>
         </div>
         
         <h2>Results Summary</h2>

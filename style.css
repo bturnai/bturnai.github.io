@@ -124,6 +124,27 @@ li strong {
     font-size: 13pt;
 }
 
+.card-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.card-inner .card-text {
+    flex: 1;
+}
+
+.card-inner img {
+    width: 220px;
+    flex-shrink: 0;
+    border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+    .card-inner { flex-direction: column; }
+    .card-inner img { width: 100%; }
+}
+
 /* Kis technológiai címkék stílusa */
 .tech-badge {
     background-color: #334155;
