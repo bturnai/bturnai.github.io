@@ -148,6 +148,25 @@ li strong {
     .card-inner img { width: 100%; }
 }
 
+/* Vissza gomb */
+.btn-back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-back:hover {
+    color: #f8fafc;
+    border-color: #60a5fa;
+}
+
 /* Kis technológiai címkék stílusa */
 .tech-badge {
     background-color: #334155;
