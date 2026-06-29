@@ -79,7 +79,11 @@
 
         /* --- MINIMALISTA PROJEKT RÁCSHÁLÓ --- */
         .projects-section {
-            padding-bottom: 8rem;
+            width: 100vw;
+            position: relative;
+            left: calc(-50vw + 50%);
+            padding: 0 3rem 8rem 3rem;
+            box-sizing: border-box;
         }
 
         .section-title {
@@ -285,6 +289,16 @@
                         <p>Classifying exercises from video using classical ML and Deep Learning</p>
                     </div>
                     <a href="gym_exercise_recognition.html" class="btn">View Project</a>
+                </div>
+
+
+                <div class="project-card">
+                    <div>
+                        <h3>House Sales in King County</h3>
+                        <img src="pictures/house_background.png" alt="House Sales King County" style="width:100%; border-radius:8px; margin: 1.5rem 0;">
+                        <p>Predicting residential property prices from 21,613 sales using regression models — from a single-feature baseline to a polynomial Ridge pipeline achieving R² = 0.75.</p>
+                    </div>
+                    <a href="house_sales.html" class="btn">View Project</a>
                 </div>
 
             </div>
