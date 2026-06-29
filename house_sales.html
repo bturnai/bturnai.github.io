@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study - House Sales in King County</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="btn-back">← Back to main page</a>
+        <header>
+            <h1>House Sales in King County:<br><span style="color: #94a3b8; font-size: 18pt; font-weight: normal;">Predicting Residential Property Prices with Regression Modelling</span></h1>
+
+            <div class="hook-box">
+                <strong>The goal:</strong> Determine the market price of residential properties in King County, WA from structural and location features. Using Python (Pandas, Scikit-learn) on 21,613 sales records, I evaluated four regression approaches — from a single-variable baseline to a polynomial Ridge pipeline — bringing R² from 0.49 to <strong>0.75</strong>, with the best out-of-sample result of <strong>0.70</strong> on a held-out test set.
+            </div>
+        </header>
+
+        <h2>Problem & Context</h2>
+        <p>A Real Estate Investment Trust wants to enter the residential market and needs a data-driven way to estimate property market value before committing capital. The challenge is that price is not simply a function of size: grade, condition, location (waterfront, latitude), and renovation history each contribute — and interact — in ways that a one-variable model cannot capture.</p>
+        <p>The project answers a practical question: how much of house price variance can be explained by observable structural and geographic features, and what modelling strategy extracts the most signal from this data?</p>
+
+        <h2>Data</h2>
+        <p>The dataset covers <strong>21,613 house sales</strong> in King County (Seattle area) between May 2014 and May 2015. Each record contains 21 variables: structural features (sqft_living, sqft_above, sqft_basement, floors, bedrooms, bathrooms, grade, condition), location (lat, long, zipcode, waterfront, view), and renovation history (yr_built, yr_renovated).</p>
+
+        <p><strong>Data quality steps before modelling:</strong></p>
+        <ul>
+            <li><strong>Dropped non-predictive columns:</strong> <code>id</code> and <code>Unnamed: 0</code> — identifiers with no relationship to price.</li>
+            <li><strong>Missing value imputation:</strong> 13 NaN entries in <code>bedrooms</code> and 10 in <code>bathrooms</code> were filled with their respective column means. Both columns are otherwise complete across 21,613 records.</li>
+        </ul>
+
+        <h2>Exploratory Data Analysis</h2>
+
+        <p>Three findings from EDA shaped modelling decisions:</p>
+
+        <ul>
+            <li><strong>Floor distribution is heavily skewed:</strong> 1-floor (10,680) and 2-floor (8,241) homes make up 87% of the dataset. 3.5-floor homes (n=8) are too rare to be statistically meaningful as a category.</li>
+            <li><strong>Waterfront carries a real price premium:</strong> Boxplot analysis confirmed that waterfront properties have both a significantly higher median price and a wider spread — meaningful despite representing under 1% of the dataset. This justified its inclusion as a feature.</li>
+        </ul>
+
+        <img src="pictures/kc_waterfront_boxplot.png" alt="Waterfront vs. Price Boxplot" style="width: 55%; border-radius: 8px; margin: 1rem 0 1.5rem 0;">
+
+        <ul>
+            <li><strong>sqft_above is positively correlated with price</strong> (r = 0.61), with increasing variance at larger square footages — a clear sign that a linear model will underfit the upper price range.</li>
+        </ul>
+
+        <img src="pictures/kc_sqftabove_regplot.png" alt="sqft_above vs. Price Regression Plot" style="width: 55%; border-radius: 8px; margin: 1rem 0 1.5rem 0;">
+
+        <p>Full correlation ranking against <code>price</code>: <code>sqft_living</code> led at r = 0.70, followed by <code>grade</code> (0.67), <code>sqft_above</code> (0.61), <code>sqft_living15</code> (0.59). <code>zipcode</code> (−0.05) and <code>long</code> (0.02) were near-zero — confirming that raw longitude/zipcode encode almost no price information without further transformation.</p>
+
+        <!-- INSERT: correlation heatmap or regplot screenshot -->
+
+        <h2>Models & Results</h2>
+
+        <p>Four modelling approaches were evaluated, each addressing a specific limitation of the previous one.</p>
+
+        <div class="recommendation-card">
+            <h4>Linear Regression — Single Feature (sqft_living) &nbsp;<span style="background:#334155; color:#94a3b8; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Baseline</span></h4>
+            <p><strong>R² = 0.493 &nbsp;·&nbsp; Full dataset</strong></p>
+            <p>A single predictor explains just under half the variance in price. Useful as a confirmation that sqft_living is a genuine signal, but insufficient as a standalone model: it ignores grade, location, and every other structural feature.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>Linear Regression — 11 Features</h4>
+            <p><strong>R² = 0.658 &nbsp;·&nbsp; Full dataset</strong></p>
+            <p><strong>Features:</strong> floors, waterfront, lat, bedrooms, sqft_basement, view, bathrooms, sqft_living15, sqft_above, grade, sqft_living.</p>
+            <p>Adding location (lat) and quality signals (grade, view, waterfront) improved R² by 16.5 percentage points. This confirms that house price is genuinely multi-dimensional: living area alone misses the location and quality premium captured by these variables.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>Pipeline: StandardScaler + PolynomialFeatures + LinearRegression &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Best overall R²</span></h4>
+            <p><strong>R² = 0.751 &nbsp;·&nbsp; Full dataset</strong></p>
+            <p>Standardising features before polynomial expansion ensured that no variable dominated due to scale differences. The polynomial transform introduced interaction and squared terms, allowing the model to capture the non-linear relationship between sqft_living and price that was visible in the residuals of the linear model. Highest R² across all configurations.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>Ridge Regression (α = 0.1)</h4>
+            <p><strong>R² = 0.648 &nbsp;·&nbsp; Test set (15%, n = 3,242)</strong></p>
+            <p>Ridge regularisation penalises large coefficients to reduce overfitting. The test-set score of 0.648 is the most reliable estimate of out-of-sample performance among the linear configurations — close to the full-dataset score of the 11-feature linear model, which confirms generalisation without degradation.</p>
+        </div>
+
+        <div class="recommendation-card">
+            <h4>Ridge + 2nd-Order Polynomial Transform &nbsp;<span style="background:#22c55e22; color:#16a34a; font-size:10pt; font-weight:600; padding:2px 10px; border-radius:20px;">Best out-of-sample</span></h4>
+            <p><strong>R² = 0.700 &nbsp;·&nbsp; Test set (15%, n = 3,242)</strong></p>
+            <p>Combining polynomial expansion with Ridge regularisation produced the best generalisation score. The regularisation term was essential: without it, the gap between full-data R² (0.751) and held-out R² (0.700) signals real overfitting risk when the feature space is expanded on a dataset of this size.</p>
+        </div>
+
+        <h2>Results Summary</h2>
+
+        <table style="width:100%; border-collapse:collapse; margin-top: 12px; font-size: 10.5pt;">
+            <thead>
+                <tr style="border-bottom: 2px solid #334155;">
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Model</th>
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">R²</th>
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Evaluated on</th>
+                    <th style="text-align:left; padding: 10px 8px; color:#94a3b8; font-weight:600;">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">Linear Regression (sqft_living)</td>
+                    <td style="padding: 10px 8px; font-weight:700;">0.493</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Full dataset</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Single-feature baseline</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">Linear Regression (11 features)</td>
+                    <td style="padding: 10px 8px; font-weight:700;">0.658</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Full dataset</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Location + quality signals added</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">Pipeline (Scaler + Poly + LR)</td>
+                    <td style="padding: 10px 8px; color:#22c55e; font-weight:700;">0.751</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Full dataset</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Best overall R²; non-linear interactions captured</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #1e293b;">
+                    <td style="padding: 10px 8px; font-weight:600;">Ridge (α = 0.1)</td>
+                    <td style="padding: 10px 8px; font-weight:700;">0.648</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Test set (15%)</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Regularised; reliable out-of-sample estimate</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 8px; font-weight:600;">Ridge + Polynomial (degree = 2)</td>
+                    <td style="padding: 10px 8px; color:#60a5fa; font-weight:700;">0.700</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Test set (15%)</td>
+                    <td style="padding: 10px 8px; color:#94a3b8;">Best generalisation</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Stack & Code</h2>
+        <ul>
+            <li><strong>Language & Libraries:</strong> Python · Pandas · NumPy · Matplotlib · Seaborn · Scikit-learn</li>
+            <li><strong>Models:</strong> LinearRegression · Ridge · Pipeline · PolynomialFeatures · StandardScaler</li>
+            <li><strong>Dataset:</strong> King County House Sales, May 2014 – May 2015 (IBM Skills Network / Kaggle)</li>
+        </ul>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-main, #f8fafc);">Source Code</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <a href="code/House_Sales_King_County.ipynb" target="_blank" class="btn-download">House_Sales_King_County.ipynb</a>
+        </div>
+
+    </div>
+</body>
+</html>
